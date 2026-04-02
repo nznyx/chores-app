@@ -36,7 +36,7 @@ jobs:
 
       - name: Upload Detekt HTML report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: detekt-report
           path: build/reports/detekt/detekt.html
@@ -61,7 +61,7 @@ jobs:
 
       - name: Upload test reports
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: test-reports
           path: '**/build/reports/tests/'
@@ -85,7 +85,7 @@ jobs:
         run: ./gradlew assembleDebug --no-daemon
 
       - name: Upload Android debug APK
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: android-debug-apk
           path: '**/build/outputs/apk/debug/*.apk'
@@ -109,7 +109,7 @@ jobs:
         run: ./gradlew packageDeb --no-daemon
 
       - name: Upload Desktop distribution
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: desktop-deb
           path: '**/build/compose/binaries/main/**/*.deb'
@@ -133,7 +133,7 @@ jobs:
         run: ./gradlew linkDebugFrameworkIosArm64 linkDebugFrameworkIosSimulatorArm64 --no-daemon
 
       - name: Upload iOS frameworks
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: ios-frameworks
           path: '**/build/bin/ios*/debugFramework/*.framework'
