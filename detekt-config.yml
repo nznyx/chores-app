@@ -1,0 +1,56 @@
+build:
+  maxIssues: 0
+  excludeCorrectable: false
+
+config:
+  validation: true
+  warningsAsErrors: false
+
+processors:
+  active: true
+
+comments:
+  active: true
+  AbsentOrWrongFileLicense:
+    active: false
+  CommentOverPrivateFunction:
+    active: false
+  CommentOverPrivateProperty:
+    active: false
+  EndOfSentenceFormat:
+    active: false
+  UndocumentedPublicClass:
+    active: false
+  UndocumentedPublicFunction:
+    active: false
+
+complexity:
+  active: true
+  ComplexCondition:
+    active: true
+    threshold: 4
+  ComplexInterface:
+    active: false
+  ComplexMethod:
+    active: true
+    threshold: 15
+  LargeClass:
+    active: true
+    threshold: 600
+  LongMethod:
+    active: true
+    threshold: 60
+  LongParameterList:
+    active: true
+    threshold: 6
+  TooManyFunctions:
+    active: true
+    threshold: 11
+
+style:
+  active: true
+  MagicNumber:
+    active: true
+  MaxLineLength:
+    active: true
+    maxLineLength: 120
