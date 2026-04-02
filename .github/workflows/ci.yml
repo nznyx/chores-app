@@ -67,34 +67,10 @@ jobs:
           path: '**/build/reports/tests/'
           if-no-files-found: ignore
 
-  build-android:
-    name: Build Android
-    runs-on: ubuntu-latest
-    needs: code-quality
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Set up Java & Gradle
-        uses: ./.github/actions/setup-java-gradle
-        with:
-          java-version: ${{ env.JDK_VERSION }}
-
-      - name: Build Android debug APK
-        run: ./gradlew assembleDebug --no-daemon
-
-      - name: Upload Android debug APK
-        uses: actions/upload-artifact@v6
-        with:
-          name: android-debug-apk
-          path: '**/build/outputs/apk/debug/*.apk'
-          if-no-files-found: ignore
-
   build-desktop:
     name: Build Desktop
     runs-on: ubuntu-latest
-    needs: code-quality
+    needs: test-jvm
 
     steps:
       - name: Checkout repository
@@ -115,10 +91,34 @@ jobs:
           path: '**/build/compose/binaries/main/**/*.deb'
           if-no-files-found: ignore
 
+  build-android:
+    name: Build Android
+    runs-on: ubuntu-latest
+    needs: build-desktop
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Java & Gradle
+        uses: ./.github/actions/setup-java-gradle
+        with:
+          java-version: ${{ env.JDK_VERSION }}
+
+      - name: Build Android debug APK
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Upload Android debug APK
+        uses: actions/upload-artifact@v6
+        with:
+          name: android-debug-apk
+          path: '**/build/outputs/apk/debug/*.apk'
+          if-no-files-found: ignore
+
   build-ios:
     name: Build iOS Framework
     runs-on: macos-latest
-    needs: code-quality
+    needs: build-desktop
 
     steps:
       - name: Checkout repository
@@ -142,7 +142,7 @@ jobs:
   ci-success:
     name: CI Passed
     runs-on: ubuntu-latest
-    needs: [ code-quality, test-jvm, build-android, build-desktop, build-ios ]
+    needs: [ code-quality, test-jvm, build-desktop, build-android, build-ios ]
     if: always()
 
     steps:
@@ -150,8 +150,8 @@ jobs:
         run: |
           if [ "${{ needs.code-quality.result }}"  != "success" ] || \
              [ "${{ needs.test-jvm.result }}"       != "success" ] || \
-             [ "${{ needs.build-android.result }}"  != "success" ] || \
              [ "${{ needs.build-desktop.result }}"  != "success" ] || \
+             [ "${{ needs.build-android.result }}"  != "success" ] || \
              [ "${{ needs.build-ios.result }}"      != "success" ]; then
             echo "One or more jobs failed."
             exit 1
