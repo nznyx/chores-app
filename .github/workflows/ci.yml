@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5
 
       - name: Set up Java & Gradle
         uses: ./.github/actions/setup-java-gradle
@@ -36,7 +36,7 @@ jobs:
 
       - name: Upload Detekt HTML report
         if: always()
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v5
         with:
           name: detekt-report
           path: build/reports/detekt/detekt.html
@@ -49,7 +49,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5
 
       - name: Set up Java & Gradle
         uses: ./.github/actions/setup-java-gradle
@@ -61,7 +61,7 @@ jobs:
 
       - name: Upload test reports
         if: always()
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v5
         with:
           name: test-reports
           path: '**/build/reports/tests/'
@@ -74,7 +74,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5
 
       - name: Set up Java & Gradle
         uses: ./.github/actions/setup-java-gradle
@@ -85,7 +85,7 @@ jobs:
         run: ./gradlew assembleDebug --no-daemon
 
       - name: Upload Android debug APK
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v5
         with:
           name: android-debug-apk
           path: '**/build/outputs/apk/debug/*.apk'
@@ -98,7 +98,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5
 
       - name: Set up Java & Gradle
         uses: ./.github/actions/setup-java-gradle
@@ -109,7 +109,7 @@ jobs:
         run: ./gradlew packageDeb --no-daemon
 
       - name: Upload Desktop distribution
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v5
         with:
           name: desktop-deb
           path: '**/build/compose/binaries/main/**/*.deb'
@@ -122,15 +122,22 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5
 
       - name: Set up Java & Gradle
         uses: ./.github/actions/setup-java-gradle
         with:
           java-version: ${{ env.JDK_VERSION }}
 
-      - name: Build and embed iOS Apple Framework
-        run: ./gradlew embedAndSignAppleFrameworkForXcode --no-daemon
+      - name: Build iOS framework (Arm64 + Simulator)
+        run: ./gradlew linkDebugFrameworkIosArm64 linkDebugFrameworkIosSimulatorArm64 --no-daemon
+
+      - name: Upload iOS frameworks
+        uses: actions/upload-artifact@v5
+        with:
+          name: ios-frameworks
+          path: '**/build/bin/ios*/debugFramework/*.framework'
+          if-no-files-found: ignore
 
   ci-success:
     name: CI Passed
