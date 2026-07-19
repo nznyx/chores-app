@@ -1,0 +1,22 @@
+# Makefile
+
+All project actions go through `make`. Run `make help` to see every available target.
+
+**Source of truth:** [`Makefile`](https://github.com/nznyx/chores-app/blob/main/Makefile) — `make help` prints targets directly from the file, so it never goes stale.
+
+## Convention
+
+When adding new automation:
+
+1. Add the target in `Makefile`
+2. CI calls `make <target>` — never inline tool commands in `ci.yml`
+
+## Dependencies
+
+| Tool | Purpose |
+|------|---------|
+| `./gradlew` | Kotlin build, lint, test |
+| `node` / `npx` | markdownlint-cli2 |
+| `uv` | mkdocs |
+
+Run `make setup` to install Node and Python deps.

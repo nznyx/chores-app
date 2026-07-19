@@ -1,0 +1,40 @@
+# markdownlint-cli2 configuration
+# https://github.com/DavidAnson/markdownlint-cli2
+
+config:
+  default: true
+
+  # MD004: unordered list style — allow both dashes and asterisks
+  MD004: false
+
+  # MD013: line length — disabled for prose readability
+  MD013: false
+
+  # MD022: blanks-around-headings — disabled; project uses compact heading style in requirements
+  MD022: false
+
+  # MD033: inline HTML — allowed (useful in docs)
+  MD033: false
+
+  # MD024: no-duplicate-heading — allow same heading in different sections
+  MD024:
+    siblings_only: true
+
+  # MD041: first-line-heading — disabled; not all docs start with H1
+  MD041: false
+
+  # MD060: table column style — disabled; compact pipe style is valid and widespread
+  MD060: false
+
+globs:
+  - "**/*.md"
+  - "!**/node_modules/**"
+  - "!**/site/**"
+  - "!.github/**"
+  - "!**/build/**"
+  - "!.gradle/**"
+  - "!iosApp/**"
+
+ignores:
+  - "LICENSE"
+  - "CHANGELOG.md"

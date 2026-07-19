@@ -1,0 +1,49 @@
+# mkdocs configuration for Chores App documentation
+# https://www.mkdocs.org/user-guide/configuration/
+
+site_name: Chores App
+site_description: Household chore management app — documentation
+repo_url: https://github.com/nznyx/chores-app
+repo_name: nznyx/chores-app
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Requirements:
+      - Functional: requirements/FR.md
+      - Non-functional: requirements/NFR.md
+  - Development:
+      - Makefile: development/makefile.md
+      - CI/CD: development/ci.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - tables
+  - toc:
+      permalink: true
