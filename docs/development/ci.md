@@ -2,23 +2,12 @@
 
 Runs on push/PR to `main` and `develop`.
 
-## Jobs
-
-| Job | Command | Runner |
-|-----|---------|--------|
-| Lint | `make lint` | ubuntu-latest |
-| Tests | `make test` | ubuntu-latest |
-| Build Desktop | `make build-desktop` | ubuntu-latest |
-| Build Android | `make build-android` | ubuntu-latest |
-| Build iOS | `make build-ios` | macos-latest |
-| Docs | `make docs-build` | ubuntu-latest |
+**Source of truth:** [`.github/workflows/ci.yml`](https://github.com/nznyx/chores-app/blob/main/.github/workflows/ci.yml).
 
 Flow: `lint` → `test` → builds + docs in parallel → gate.
 
-## Adding a check
+## Convention
 
-1. Add a `make` target
-2. Add a job in `ci.yml` calling that target
-3. Add to `ci-success` needs if gating
-
-Never write raw Gradle or tool invocations in `ci.yml` — use `make`.
+1. Every CI step calls a `make` target — never raw tool invocations
+2. Add the job to `ci.yml`
+3. If gating, add to `ci-success` needs
