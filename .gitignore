@@ -52,7 +52,6 @@ build/
 .idea/junie.xml
 node_modules/
 site/
-package-lock.json
 .rpt2_cache/
 local.properties
 buildSrcTmp/

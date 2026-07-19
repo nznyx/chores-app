@@ -8,7 +8,7 @@
 GRADLE        := ./gradlew
 MARKDOWNLINT  := npx markdownlint-cli2
 GRADLE_FLAGS  := --no-daemon
-MKDOCS        := $(shell command -v mkdocs 2>/dev/null || echo "uv run mkdocs")
+MKDOCS        := $(shell command -v mkdocs 2>/dev/null || echo "uv run --with mkdocs-material mkdocs")
 
 # Help
 
@@ -108,7 +108,8 @@ clean: ## Remove all build artifacts
 
 docs-setup: ## Install mkdocs + material theme
 	@echo "→ Installing mkdocs + material theme..."
-	uv pip install --system mkdocs mkdocs-material || uv pip install mkdocs mkdocs-material || pip3 install mkdocs mkdocs-material
+	uvx mkdocs --version >/dev/null 2>&1 || uv tool install mkdocs
+	uv pip install mkdocs-material || uv run --with mkdocs-material mkdocs --version
 
 docs-serve: ## Serve docs locally (hot-reload)
 	@echo "→ Starting mkdocs server at http://127.0.0.1:8000 ..."
