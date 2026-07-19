@@ -172,19 +172,25 @@
 **Criteria:** All components (API, database, scheduler) runnable on a single host via Docker Compose; no hard dependency on external managed databases, cloud queues, or third-party storage
 **Priority:** Medium
 
-### NFR-25: Push Notifications for Self-Hosted Instances
+### NFR-25: Local Network Accessibility
+**Description:** When the backend is deployed in a local network, client devices connected to the same local network shall be able to access the service and manage chores without requiring internet connectivity.
+**Rationale:** Self-hosted household deployments may operate entirely within a home LAN, where users expect the app to remain functional even without external internet access.
+**Criteria:** Clients on the same local network can connect to the backend using a local IP address or mDNS hostname; all core household task management functions remain available without internet access, except features that inherently depend on external services (e.g. remote push notifications).
+**Priority:** Medium
+
+### NFR-26: Push Notifications for Self-Hosted Instances
 **Description:** Self-hosted instances shall support push notification delivery via configurable platform credentials
 **Rationale:** Push notifications require APNs (iOS) and FCM (Android) credentials that belong to the app or to the self-hoster; this must be configurable without code changes
 **Criteria:** Backend accepts APNs and FCM credentials via environment variables; documentation provided for obtaining and configuring credentials; push notifications fully functional when valid credentials are supplied
 **Priority:** Medium
 
-### NFR-26: Data Backup and Restore
+### NFR-27: Data Backup and Restore
 **Description:** Self-hosted instances shall support straightforward data backup and restore procedures
 **Rationale:** Self-hosters are responsible for their own data durability; the system must not make backup unnecessarily complex
 **Criteria:** All persistent state stored in a single standard database engine (e.g. PostgreSQL); official documentation covers backup, restore, and migration procedures; no proprietary backup tooling required
 **Priority:** Medium
 
-### NFR-27: Version Upgrade Path
+### NFR-28: Version Upgrade Path
 **Description:** Self-hosted instances shall support upgrading to newer versions without requiring manual database intervention beyond pulling updated images
 **Rationale:** Complex upgrade procedures discourage self-hosters from staying current, creating security and compatibility risks
 **Criteria:** Database schema migrations applied automatically on service startup; breaking changes documented with explicit migration guides; rollback procedures documented for major version changes
@@ -194,25 +200,25 @@
 
 ## Data & Privacy
 
-### NFR-28: Household Data Isolation
+### NFR-29: Household Data Isolation
 **Description:** Data belonging to one household shall never be accessible to members of another household unless explicitly shared
 **Rationale:** Users must be confident that their household data is not visible to unrelated parties
 **Criteria:** All data access queries scoped by household membership and validated server-side; no cross-household data leakage possible through any API endpoint
 **Priority:** High
 
-### NFR-29: Personal Chore Privacy
+### NFR-30: Personal Chore Privacy
 **Description:** Personal chores shall be visible only to their owner and any users or households explicitly granted access via the sharing feature
 **Rationale:** Personal chores may include sensitive habits or health-related tasks; privacy must be enforced by default, not opt-in
 **Criteria:** Personal chore data excluded from all household-scoped queries; sharing access validated server-side on every request; revoked sharing access takes effect immediately
 **Priority:** High
 
-### NFR-30: User Data Export
+### NFR-31: User Data Export
 **Description:** Users shall be able to export all of their personal data in a portable, machine-readable format
 **Rationale:** Data portability is a user right under privacy regulations such as GDPR
 **Criteria:** Export includes account information, personal chores, household memberships, and chore completion history; delivered as JSON or CSV; export initiated and delivered within a reasonable time window
 **Priority:** Medium
 
-### NFR-31: Account Deletion
+### NFR-32: Account Deletion
 **Description:** Users shall be able to permanently delete their account and all associated personal data
 **Rationale:** Right to erasure under GDPR and equivalent regulations
 **Criteria:** Account deletion removes all personal data within 30 days of the request; household chore history attributions anonymised rather than deleted to preserve scoreboard integrity for remaining members; user shown a clear summary of what will and will not be deleted before confirming
@@ -222,19 +228,19 @@
 
 ## Accessibility
 
-### NFR-32: Screen Reader Support
+### NFR-33: Screen Reader Support
 **Description:** All interactive and informational UI elements shall be accessible via platform screen readers (TalkBack on Android, VoiceOver on iOS)
 **Rationale:** The app must be usable by members with visual impairments
 **Criteria:** All buttons, labels, and status indicators carry meaningful accessibility labels; chore list items, step indicators, and scoreboard entries fully navigable via screen reader without information loss
 **Priority:** Medium
 
-### NFR-33: Dynamic Font Scaling
+### NFR-34: Dynamic Font Scaling
 **Description:** The application UI shall respect the user's system-level font size preference
 **Rationale:** Users with low vision rely on larger system font sizes; the UI must not break or clip content when this is applied
 **Criteria:** All text elements scale with system font size settings; layouts remain functional and unclipped at up to 200% of the default font scale
 **Priority:** Medium
 
-### NFR-34: Colour Contrast
+### NFR-35: Colour Contrast
 **Description:** Text and interactive elements shall meet minimum colour contrast ratios
 **Rationale:** Sufficient contrast is necessary for users with colour vision deficiencies and in bright ambient lighting conditions
 **Criteria:** All text meets WCAG 2.1 AA contrast ratio (4.5:1 for normal text, 3:1 for large text); interactive element boundaries meet 3:1 contrast against adjacent colours
@@ -244,19 +250,19 @@
 
 ## Maintainability
 
-### NFR-35: Shared Business Logic via KMP
+### NFR-36: Shared Business Logic via KMP
 **Description:** Business logic, data models, scheduling rules, and API communication shall be implemented in shared Kotlin Multiplatform code, minimising platform-specific duplication
 **Rationale:** A shared codebase reduces defect surface area and ensures consistent behaviour across Android and iOS
 **Criteria:** Platform-specific code limited to UI rendering (Compose Multiplatform), platform notification APIs, and widget integration; all business logic resides in the shared KMP module
 **Priority:** High
 
-### NFR-36: API Versioning
+### NFR-37: API Versioning
 **Description:** The backend API shall be versioned to allow clients and server to evolve independently
 **Rationale:** Self-hosted instances may lag behind the latest server version; client apps on users' devices may not update immediately; both must continue to function correctly
 **Criteria:** API versioned via URL path prefix (e.g. /v1/); previous major API version supported for a minimum of 6 months after a new major version is released; deprecation communicated via response headers
 **Priority:** Medium
 
-### NFR-37: Logging and Observability
+### NFR-38: Logging and Observability
 **Description:** The backend shall emit structured logs and expose health check and basic metrics endpoints
 **Rationale:** Self-hosters and operators need visibility into system health and errors without requiring proprietary monitoring tooling
 **Criteria:** Structured JSON logs emitted to stdout at configurable log levels; /health endpoint returning service and dependency status; optional Prometheus-compatible metrics endpoint; no sensitive user data logged in plain text
@@ -266,7 +272,7 @@
 
 ## Localisation
 
-### NFR-38: Internationalisation Readiness
+### NFR-39: Internationalisation Readiness
 **Description:** The application shall be built with internationalisation support, allowing UI strings to be translated without code changes
 **Rationale:** The app targets a broad international audience; hardcoded strings prevent future localisation and community contribution
 **Criteria:** All user-facing strings externalised into resource files; date, time, and number formatting uses locale-aware system APIs; initial release ships in English with the architecture ready to accept additional locales

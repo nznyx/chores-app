@@ -11,12 +11,40 @@
 **Output:** Confirmation email sent, account created
 **Priority:** High
 
-### FR-02: User Login
+### FR-02: User Authentication
+**Description:** The system shall authenticate users to verify their identity before granting access to protected resources
+**Actor:** Guest User / Registered User
+**Input:** Authentication credentials via one or more supported methods
+**Output:** JWT access token and refresh token issued upon successful authentication; rejected with an error on invalid credentials
+**Priority:** High
+
+### FR-02A: User Login
 **Description:** The system shall authenticate users with email and password
 **Actor:** Registered User
 **Input:** Email, password
 **Output:** JWT access token and refresh token issued, redirect to application
 **Priority:** High
+
+### FR-02B: Sign in with Google
+**Description:** The system shall allow users to authenticate using their Google account
+**Actor:** Guest User / Registered User
+**Input:** Google OAuth sign-in request
+**Output:** User authenticated; if no matching account exists, a new account is created automatically; JWT access token and refresh token issued
+**Priority:** Medium
+
+### FR-02C: Sign in with Apple
+**Description:** The system shall allow users to authenticate using their Apple ID on supported platforms
+**Actor:** Guest User / Registered User
+**Input:** Apple Sign-In request
+**Output:** User authenticated; if no matching account exists, a new account is created automatically; JWT access token and refresh token issued
+**Priority:** Medium
+
+### FR-02D: Link External Login Provider
+**Description:** The system shall allow authenticated users to link their account with one or more external identity providers such as Google or Apple
+**Actor:** Authenticated User
+**Input:** Provider selection, successful OAuth authorization
+**Output:** External provider linked to the existing account; future logins may use either email/password or the linked provider
+**Priority:** Low
 
 ### FR-03: Password Reset
 **Description:** The system shall allow users to reset forgotten passwords
@@ -398,6 +426,20 @@ Chores are classified by their **assignment mode**, which determines who is expe
 **Output:** Push notification delivered to eligible members' devices; notification includes chore title, due time, and a claim action
 **Priority:** High
 
+### FR-50A: Suppress Notifications During Busy Calendar Periods
+**Description:** The system shall allow users to suppress due chore notifications while they are marked as busy in a connected or imported calendar
+**Actor:** Authenticated User
+**Input:** Notification preference enabled, connected/imported calendar events marked as busy
+**Output:** Chore notifications delayed, skipped, or rescheduled when the user is currently busy according to their calendar data
+**Priority:** Medium
+
+### FR-50B: Delay Notifications Until Free Time
+**Description:** When notification suppression during busy periods is enabled, the system shall deliver the reminder at the next available non-busy time slot before the chore due time where possible
+**Actor:** System
+**Input:** Scheduled reminder event, user busy/free calendar state
+**Output:** Reminder delivered at the next available non-busy time slot, or skipped if no suitable slot exists before the due time
+**Priority:** Low
+
 ---
 
 ## Notification Claiming
@@ -464,16 +506,62 @@ Chores are classified by their **assignment mode**, which determines who is expe
 
 ---
 
+## Calendar Integration
+
+### FR-59: Calendar View
+**Description:** The system shall provide a calendar view showing chores, reminders, and optionally connected schedule events by date and time
+**Actor:** Authenticated User / Household Member
+**Input:** Navigate to Calendar view, optional date range or filter
+**Output:** Calendar displaying personal chores and chores from the currently viewed household, grouped by due date and time
+**Priority:** Medium
+
+### FR-60: Export Chores to External Calendar
+**Description:** The system shall allow users to export their chores to an external calendar-compatible format
+**Actor:** Authenticated User
+**Input:** Export request for personal chores and optionally assigned household chores
+**Output:** Private iCal/ICS feed URL or downloadable ICS file generated for use in third-party calendar applications
+**Priority:** Medium
+
+### FR-61: Import External Schedule
+**Description:** The system shall allow users to import schedule data from an external calendar source
+**Actor:** Authenticated User
+**Input:** ICS file upload or private calendar feed URL
+**Output:** Imported events displayed in the app calendar view as read-only schedule items
+**Priority:** Medium
+
+### FR-62: Connect Google Calendar
+**Description:** The system shall allow users to connect their Google Calendar account and synchronise selected calendar events into the application
+**Actor:** Authenticated User
+**Input:** Google OAuth authorization, selected calendar(s), sync preferences
+**Output:** Selected Google Calendar events displayed in the application calendar view; optional export of chores to the connected Google Calendar
+**Priority:** Medium
+
+### FR-63: Use Device Calendar on iOS
+**Description:** The iOS application shall allow users to view and optionally export chores to their device calendar using platform calendar permissions
+**Actor:** Authenticated User
+**Input:** Calendar access permission grant, optional export action
+**Output:** Device calendar events displayed alongside chores and/or chores exported to the selected device calendar
+**Priority:** Low
+
+### FR-64: Create Personal Availability Events
+**Description:** The system shall allow users to create personal availability or unavailability events such as classes, work shifts, or appointments
+**Actor:** Authenticated User
+**Input:** Event title, start time, end time, optional recurrence rule
+**Output:** Event displayed in the user's calendar and used to indicate occupied time slots
+**Priority:** Low
+
+---
+
 ## Today Widget
 
-### FR-59: Display Today's Tasks in Home Screen Widget
+### FR-65: Display Today's Tasks in Home Screen Widget
 **Description:** The system shall provide a home screen widget that shows the authenticated user's chores due today from their currently active household and their personal chores, without requiring the app to be opened
 **Actor:** Authenticated User
 **Input:** Widget placed on the device home screen
 **Output:** Scrollable list of today's due chores from the active household and personal scope rendered in the widget, refreshed at a configured interval or when the underlying data changes
 **Priority:** Medium
 
-### FR-60: Interact with Widget Tasks
+### FR-66: Interact with Widget Tasks
 **Description:** The system shall allow the user to interact with chore entries directly in the widget
 **Actor:** Authenticated User
 **Input:** Tap on a chore entry in the widget
@@ -484,14 +572,14 @@ Chores are classified by their **assignment mode**, which determines who is expe
 
 ## Self-Hosting
 
-### FR-61: Deploy a Private Backend Instance
+### FR-67: Deploy a Private Backend Instance
 **Description:** The system shall provide official container images and configuration documentation to allow technically proficient users to self-host the backend
 **Actor:** Self-Hosting User
 **Input:** Docker Compose file or equivalent deployment configuration with required environment variables
 **Output:** A fully operational private backend instance serving all API endpoints consumed by the client applications
 **Priority:** Medium
 
-### FR-62: Point Client to Custom Backend
+### FR-68: Point Client to Custom Backend
 **Description:** The system shall allow users to configure the client application to communicate with a custom backend URL instead of the default hosted service
 **Actor:** Self-Hosting User
 **Input:** Custom server base URL entered in the app's server settings screen
