@@ -1,0 +1,8 @@
+{
+  "name": "chores-app",
+  "private": true,
+  "description": "Chores App — household chore management. Dependencies for doc linting and tooling only; the app itself is Kotlin/Gradle.",
+  "devDependencies": {
+    "markdownlint-cli2": "^0.23.0"
+  }
+}

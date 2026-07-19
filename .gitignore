@@ -51,6 +51,8 @@ build/
 .idea/copilot.data.migration.*.xml
 .idea/junie.xml
 node_modules/
+site/
+package-lock.json
 .rpt2_cache/
 local.properties
 buildSrcTmp/

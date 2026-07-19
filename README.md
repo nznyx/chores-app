@@ -47,4 +47,4 @@ Built with [Kotlin Multiplatform (KMP)](https://kotlinlang.org/docs/multiplatfor
 
 ## Documentation
 
-[More about documentation](/docs/README.md)
+[Full documentation](/docs/index.md)

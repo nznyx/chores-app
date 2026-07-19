@@ -14,53 +14,41 @@ env:
   JDK_VERSION: '24'
 
 jobs:
-  code-quality:
-    name: Code Quality
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Set up Java & Gradle
-        uses: ./.github/actions/setup-java-gradle
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup-java-gradle
         with:
           java-version: ${{ env.JDK_VERSION }}
-
-      - name: Check Kotlin code style (ktlint)
-        run: ./gradlew ktlintCheck --no-daemon
-
-      - name: Run Detekt static analysis
-        run: ./gradlew detekt --no-daemon
-
-      - name: Upload Detekt HTML report
-        if: always()
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - run: make lint
+      - if: always()
         uses: actions/upload-artifact@v6
         with:
           name: detekt-report
           path: build/reports/detekt/detekt.html
           if-no-files-found: ignore
 
-  test-jvm:
-    name: JVM Tests
+  test:
+    name: Tests
     runs-on: ubuntu-latest
-    needs: code-quality
+    needs: lint
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Set up Java & Gradle
-        uses: ./.github/actions/setup-java-gradle
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup-java-gradle
         with:
           java-version: ${{ env.JDK_VERSION }}
-
-      - name: Run all JVM tests
-        run: ./gradlew allTests --no-daemon
-
-      - name: Upload test reports
-        if: always()
+      - run: make test
+      - if: always()
         uses: actions/upload-artifact@v6
         with:
           name: test-reports
@@ -70,22 +58,15 @@ jobs:
   build-desktop:
     name: Build Desktop
     runs-on: ubuntu-latest
-    needs: test-jvm
+    needs: test
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Set up Java & Gradle
-        uses: ./.github/actions/setup-java-gradle
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup-java-gradle
         with:
           java-version: ${{ env.JDK_VERSION }}
-
-      - name: Build Desktop distribution (Deb)
-        run: ./gradlew packageDeb --no-daemon
-
-      - name: Upload Desktop distribution
-        uses: actions/upload-artifact@v6
+      - run: make build-desktop
+      - uses: actions/upload-artifact@v6
         with:
           name: desktop-deb
           path: '**/build/compose/binaries/main/**/*.deb'
@@ -94,65 +75,63 @@ jobs:
   build-android:
     name: Build Android
     runs-on: ubuntu-latest
-    needs: build-desktop
+    needs: test
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Set up Java & Gradle
-        uses: ./.github/actions/setup-java-gradle
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup-java-gradle
         with:
           java-version: ${{ env.JDK_VERSION }}
-
-      - name: Build Android debug APK
-        run: ./gradlew assembleDebug --no-daemon
-
-      - name: Upload Android debug APK
-        uses: actions/upload-artifact@v6
+      - run: make build-android
+      - uses: actions/upload-artifact@v6
         with:
           name: android-debug-apk
           path: '**/build/outputs/apk/debug/*.apk'
           if-no-files-found: ignore
 
   build-ios:
-    name: Build iOS Framework
+    name: Build iOS
     runs-on: macos-latest
-    needs: build-desktop
+    needs: test
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Set up Java & Gradle
-        uses: ./.github/actions/setup-java-gradle
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup-java-gradle
         with:
           java-version: ${{ env.JDK_VERSION }}
-
-      - name: Build iOS framework (Arm64 + Simulator)
-        run: ./gradlew linkDebugFrameworkIosArm64 linkDebugFrameworkIosSimulatorArm64 --no-daemon
-
-      - name: Upload iOS frameworks
-        uses: actions/upload-artifact@v6
+      - run: make build-ios
+      - uses: actions/upload-artifact@v6
         with:
           name: ios-frameworks
           path: '**/build/bin/ios*/debugFramework/*.framework'
           if-no-files-found: ignore
 
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    needs: lint
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v8
+      - run: uv pip install --system mkdocs mkdocs-material
+      - run: make docs-build
+
   ci-success:
     name: CI Passed
     runs-on: ubuntu-latest
-    needs: [ code-quality, test-jvm, build-desktop, build-android, build-ios ]
+    needs: [ lint, test, build-desktop, build-android, build-ios, docs ]
     if: always()
 
     steps:
-      - name: Verify all jobs succeeded
-        run: |
-          if [ "${{ needs.code-quality.result }}"  != "success" ] || \
-             [ "${{ needs.test-jvm.result }}"       != "success" ] || \
-             [ "${{ needs.build-desktop.result }}"  != "success" ] || \
-             [ "${{ needs.build-android.result }}"  != "success" ] || \
-             [ "${{ needs.build-ios.result }}"      != "success" ]; then
+      - run: |
+          if [ "${{ needs.lint.result }}"            != "success" ] || \
+             [ "${{ needs.test.result }}"            != "success" ] || \
+             [ "${{ needs.build-desktop.result }}"   != "success" ] || \
+             [ "${{ needs.build-android.result }}"   != "success" ] || \
+             [ "${{ needs.build-ios.result }}"       != "success" ] || \
+             [ "${{ needs.docs.result }}"            != "success" ]; then
             echo "One or more jobs failed."
             exit 1
           fi
