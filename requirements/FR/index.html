@@ -1,0 +1,3382 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Household chore management app — documentation">
+      
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../NFR/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Functional - Chores App</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#functional-requirements" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Chores App" class="md-header__button md-logo" aria-label="Chores App" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Chores App
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Functional
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nznyx/chores-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nznyx/chores-app
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  Requirements
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../development/makefile/" class="md-tabs__link">
+          
+  
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Chores App" class="md-nav__button md-logo" aria-label="Chores App" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Chores App
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nznyx/chores-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nznyx/chores-app
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Requirements
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#user-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-01-user-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-01: User Registration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-02-user-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-02: User Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-02a-user-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-02A: User Login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-02b-sign-in-with-google" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-02B: Sign in with Google
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-02c-sign-in-with-apple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-02C: Sign in with Apple
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-02d-link-external-login-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-02D: Link External Login Provider
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-03-password-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-03: Password Reset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-04-token-refresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-04: Token Refresh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-05-logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-05: Logout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-06-profile-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-06: Profile Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#household-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Household Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Household Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-07-create-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-07: Create Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-08-edit-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-08: Edit Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-09-delete-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-09: Delete Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-10-switch-viewed-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-10: Switch Viewed Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-11-switch-active-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-11: Switch Active Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-12-invite-member-to-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-12: Invite Member to Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-13-accept-or-decline-household-invitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-13: Accept or Decline Household Invitation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-14-remove-member-from-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-14: Remove Member from Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-15-leave-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-15: Leave Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-16-assign-member-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-16: Assign Member Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#active-household-cross-household-interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active Household &amp; Cross-Household Interaction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Active Household &amp; Cross-Household Interaction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-17-single-active-household-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-17: Single Active Household Constraint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-18-cross-household-task-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-18: Cross-Household Task Prompt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vacation-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vacation Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vacation Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-19-enable-vacation-mode-for-a-member" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-19: Enable Vacation Mode for a Member
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-20-enable-vacation-mode-for-all-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-20: Enable Vacation Mode for All Members
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-21-redistribute-tasks-during-vacation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-21: Redistribute Tasks During Vacation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-22-pause-tasks-during-vacation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-22: Pause Tasks During Vacation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-23-disable-vacation-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-23: Disable Vacation Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-24-automatic-vacation-mode-expiry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-24: Automatic Vacation Mode Expiry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permission-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permission System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Permission System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-25-assign-task-level-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-25: Assign Task-Level Permissions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-26-enforce-task-level-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-26: Enforce Task-Level Permissions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chore-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chore Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chore Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-27-individual-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-27: Individual Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-28-group-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-28: Group Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-29-all-members-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-29: All-Members Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-30-household-single-action-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-30: Household Single-Action Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-31-personal-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-31: Personal Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chore-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chore Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chore Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-32-create-chore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-32: Create Chore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-33-edit-chore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-33: Edit Chore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-34-delete-chore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-34: Delete Chore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-35-complete-chore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-35: Complete Chore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-36-recurring-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-36: Recurring Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-37-one-off-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-37: One-off Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-38-multi-step-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-38: Multi-step Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-39-view-chore-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-39: View Chore History
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personal-chore-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Personal Chore Sharing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Personal Chore Sharing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-40-share-personal-chores-with-another-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-40: Share Personal Chores with Another User
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-41-share-personal-chores-with-a-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-41: Share Personal Chores with a Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-42-revoke-personal-chore-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-42: Revoke Personal Chore Sharing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-presets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Presets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task Presets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-43-browse-preset-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-43: Browse Preset Library
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-44-create-chore-from-preset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-44: Create Chore from Preset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-45-save-configuration-as-custom-preset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-45: Save Configuration as Custom Preset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tags
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-46-manage-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-46: Manage Tags
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-47-assign-tags-to-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-47: Assign Tags to Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-48-filter-chores-by-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-48: Filter Chores by Tag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scheduling-and-reminders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scheduling and Reminders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scheduling and Reminders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-49-configure-reminder-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-49: Configure Reminder Timing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-50-send-push-notifications-for-due-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-50: Send Push Notifications for Due Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-50a-suppress-notifications-during-busy-calendar-periods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-50A: Suppress Notifications During Busy Calendar Periods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-50b-delay-notifications-until-free-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-50B: Delay Notifications Until Free Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notification-claiming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notification Claiming
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notification Claiming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-51-broadcast-task-notification-to-multiple-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-51: Broadcast Task Notification to Multiple Members
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-52-claim-a-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-52: Claim a Task
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-53-release-a-claimed-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-53: Release a Claimed Task
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#views-and-scoreboards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Views and Scoreboards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Views and Scoreboards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-54-my-chores-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-54: My Chores View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-55-household-chores-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-55: Household Chores View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-56-household-leaderboard-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-56: Household Leaderboard View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-57-profile-view-with-personal-scoreboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-57: Profile View with Personal Scoreboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-58-update-scoreboards-on-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-58: Update Scoreboards on Completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calendar-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calendar Integration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Calendar Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-59-calendar-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-59: Calendar View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-60-export-chores-to-external-calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-60: Export Chores to External Calendar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-61-import-external-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-61: Import External Schedule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-62-connect-google-calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-62: Connect Google Calendar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-63-use-device-calendar-on-ios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-63: Use Device Calendar on iOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-64-create-personal-availability-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-64: Create Personal Availability Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#today-widget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Today Widget
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Today Widget">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-65-display-todays-tasks-in-home-screen-widget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-65: Display Today's Tasks in Home Screen Widget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-66-interact-with-widget-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-66: Interact with Widget Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-hosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Self-Hosting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Self-Hosting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-67-deploy-a-private-backend-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-67: Deploy a Private Backend Instance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-68-point-client-to-custom-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-68: Point Client to Custom Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NFR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Non-functional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/makefile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Makefile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#user-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-01-user-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-01: User Registration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-02-user-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-02: User Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-02a-user-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-02A: User Login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-02b-sign-in-with-google" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-02B: Sign in with Google
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-02c-sign-in-with-apple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-02C: Sign in with Apple
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-02d-link-external-login-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-02D: Link External Login Provider
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-03-password-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-03: Password Reset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-04-token-refresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-04: Token Refresh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-05-logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-05: Logout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-06-profile-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-06: Profile Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#household-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Household Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Household Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-07-create-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-07: Create Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-08-edit-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-08: Edit Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-09-delete-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-09: Delete Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-10-switch-viewed-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-10: Switch Viewed Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-11-switch-active-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-11: Switch Active Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-12-invite-member-to-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-12: Invite Member to Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-13-accept-or-decline-household-invitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-13: Accept or Decline Household Invitation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-14-remove-member-from-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-14: Remove Member from Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-15-leave-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-15: Leave Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-16-assign-member-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-16: Assign Member Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#active-household-cross-household-interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active Household &amp; Cross-Household Interaction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Active Household &amp; Cross-Household Interaction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-17-single-active-household-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-17: Single Active Household Constraint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-18-cross-household-task-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-18: Cross-Household Task Prompt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vacation-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vacation Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vacation Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-19-enable-vacation-mode-for-a-member" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-19: Enable Vacation Mode for a Member
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-20-enable-vacation-mode-for-all-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-20: Enable Vacation Mode for All Members
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-21-redistribute-tasks-during-vacation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-21: Redistribute Tasks During Vacation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-22-pause-tasks-during-vacation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-22: Pause Tasks During Vacation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-23-disable-vacation-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-23: Disable Vacation Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-24-automatic-vacation-mode-expiry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-24: Automatic Vacation Mode Expiry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permission-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permission System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Permission System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-25-assign-task-level-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-25: Assign Task-Level Permissions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-26-enforce-task-level-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-26: Enforce Task-Level Permissions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chore-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chore Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chore Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-27-individual-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-27: Individual Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-28-group-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-28: Group Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-29-all-members-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-29: All-Members Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-30-household-single-action-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-30: Household Single-Action Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-31-personal-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-31: Personal Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chore-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chore Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chore Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-32-create-chore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-32: Create Chore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-33-edit-chore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-33: Edit Chore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-34-delete-chore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-34: Delete Chore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-35-complete-chore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-35: Complete Chore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-36-recurring-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-36: Recurring Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-37-one-off-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-37: One-off Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-38-multi-step-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-38: Multi-step Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-39-view-chore-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-39: View Chore History
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personal-chore-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Personal Chore Sharing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Personal Chore Sharing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-40-share-personal-chores-with-another-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-40: Share Personal Chores with Another User
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-41-share-personal-chores-with-a-household" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-41: Share Personal Chores with a Household
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-42-revoke-personal-chore-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-42: Revoke Personal Chore Sharing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-presets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Presets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task Presets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-43-browse-preset-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-43: Browse Preset Library
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-44-create-chore-from-preset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-44: Create Chore from Preset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-45-save-configuration-as-custom-preset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-45: Save Configuration as Custom Preset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tags
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-46-manage-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-46: Manage Tags
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-47-assign-tags-to-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-47: Assign Tags to Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-48-filter-chores-by-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-48: Filter Chores by Tag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scheduling-and-reminders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scheduling and Reminders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scheduling and Reminders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-49-configure-reminder-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-49: Configure Reminder Timing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-50-send-push-notifications-for-due-chores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-50: Send Push Notifications for Due Chores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-50a-suppress-notifications-during-busy-calendar-periods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-50A: Suppress Notifications During Busy Calendar Periods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-50b-delay-notifications-until-free-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-50B: Delay Notifications Until Free Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notification-claiming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notification Claiming
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notification Claiming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-51-broadcast-task-notification-to-multiple-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-51: Broadcast Task Notification to Multiple Members
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-52-claim-a-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-52: Claim a Task
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-53-release-a-claimed-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-53: Release a Claimed Task
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#views-and-scoreboards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Views and Scoreboards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Views and Scoreboards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-54-my-chores-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-54: My Chores View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-55-household-chores-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-55: Household Chores View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-56-household-leaderboard-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-56: Household Leaderboard View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-57-profile-view-with-personal-scoreboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-57: Profile View with Personal Scoreboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-58-update-scoreboards-on-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-58: Update Scoreboards on Completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calendar-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calendar Integration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Calendar Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-59-calendar-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-59: Calendar View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-60-export-chores-to-external-calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-60: Export Chores to External Calendar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-61-import-external-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-61: Import External Schedule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-62-connect-google-calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-62: Connect Google Calendar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-63-use-device-calendar-on-ios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-63: Use Device Calendar on iOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-64-create-personal-availability-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-64: Create Personal Availability Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#today-widget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Today Widget
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Today Widget">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-65-display-todays-tasks-in-home-screen-widget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-65: Display Today's Tasks in Home Screen Widget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-66-interact-with-widget-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-66: Interact with Widget Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-hosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Self-Hosting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Self-Hosting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr-67-deploy-a-private-backend-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-67: Deploy a Private Backend Instance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr-68-point-client-to-custom-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FR-68: Point Client to Custom Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="user-authentication">User Authentication<a class="headerlink" href="#user-authentication" title="Permanent link">&para;</a></h2>
+<h3 id="fr-01-user-registration">FR-01: User Registration<a class="headerlink" href="#fr-01-user-registration" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow new users to create an account
+<strong>Actor:</strong> Guest User
+<strong>Input:</strong> Username, email, password
+<strong>Output:</strong> Confirmation email sent, account created
+<strong>Priority:</strong> High</p>
+<h3 id="fr-02-user-authentication">FR-02: User Authentication<a class="headerlink" href="#fr-02-user-authentication" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall authenticate users to verify their identity before granting access to protected resources
+<strong>Actor:</strong> Guest User / Registered User
+<strong>Input:</strong> Authentication credentials via one or more supported methods
+<strong>Output:</strong> JWT access token and refresh token issued upon successful authentication; rejected with an error on invalid credentials
+<strong>Priority:</strong> High</p>
+<h3 id="fr-02a-user-login">FR-02A: User Login<a class="headerlink" href="#fr-02a-user-login" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall authenticate users with email and password
+<strong>Actor:</strong> Registered User
+<strong>Input:</strong> Email, password
+<strong>Output:</strong> JWT access token and refresh token issued, redirect to application
+<strong>Priority:</strong> High</p>
+<h3 id="fr-02b-sign-in-with-google">FR-02B: Sign in with Google<a class="headerlink" href="#fr-02b-sign-in-with-google" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to authenticate using their Google account
+<strong>Actor:</strong> Guest User / Registered User
+<strong>Input:</strong> Google OAuth sign-in request
+<strong>Output:</strong> User authenticated; if no matching account exists, a new account is created automatically; JWT access token and refresh token issued
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-02c-sign-in-with-apple">FR-02C: Sign in with Apple<a class="headerlink" href="#fr-02c-sign-in-with-apple" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to authenticate using their Apple ID on supported platforms
+<strong>Actor:</strong> Guest User / Registered User
+<strong>Input:</strong> Apple Sign-In request
+<strong>Output:</strong> User authenticated; if no matching account exists, a new account is created automatically; JWT access token and refresh token issued
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-02d-link-external-login-provider">FR-02D: Link External Login Provider<a class="headerlink" href="#fr-02d-link-external-login-provider" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow authenticated users to link their account with one or more external identity providers such as Google or Apple
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Provider selection, successful OAuth authorization
+<strong>Output:</strong> External provider linked to the existing account; future logins may use either email/password or the linked provider
+<strong>Priority:</strong> Low</p>
+<h3 id="fr-03-password-reset">FR-03: Password Reset<a class="headerlink" href="#fr-03-password-reset" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to reset forgotten passwords
+<strong>Actor:</strong> Registered User
+<strong>Input:</strong> Registered email address
+<strong>Output:</strong> Password reset link sent to email
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-04-token-refresh">FR-04: Token Refresh<a class="headerlink" href="#fr-04-token-refresh" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall automatically refresh access tokens using a valid refresh token before the session expires
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Valid refresh token
+<strong>Output:</strong> New access token issued, old access token invalidated
+<strong>Priority:</strong> High</p>
+<h3 id="fr-05-logout">FR-05: Logout<a class="headerlink" href="#fr-05-logout" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to log out of the application, invalidating their active tokens
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Logout request
+<strong>Output:</strong> Access and refresh tokens invalidated, user redirected to login screen
+<strong>Priority:</strong> High</p>
+<h3 id="fr-06-profile-management">FR-06: Profile Management<a class="headerlink" href="#fr-06-profile-management" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to update their display name, avatar image, and email address
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Updated display name, avatar, and/or email
+<strong>Output:</strong> Profile record updated; if email changed, confirmation sent to new address before it is applied
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="household-management">Household Management<a class="headerlink" href="#household-management" title="Permanent link">&para;</a></h2>
+<h3 id="fr-07-create-household">FR-07: Create Household<a class="headerlink" href="#fr-07-create-household" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow any authenticated user to create a new household
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Household name (e.g. "City Flat", "Countryside Cottage")
+<strong>Output:</strong> Household created; creator automatically assigned the admin role
+<strong>Priority:</strong> High</p>
+<h3 id="fr-08-edit-household">FR-08: Edit Household<a class="headerlink" href="#fr-08-edit-household" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow household admins to update the household name
+<strong>Actor:</strong> Household Admin
+<strong>Input:</strong> Updated name and/or location label
+<strong>Output:</strong> Household record updated
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-09-delete-household">FR-09: Delete Household<a class="headerlink" href="#fr-09-delete-household" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow household admins to permanently delete a household and all of its associated data
+<strong>Actor:</strong> Household Admin
+<strong>Input:</strong> Household selection, explicit delete confirmation
+<strong>Output:</strong> Household, all chores, chore history, memberships, and tags permanently removed
+<strong>Priority:</strong> Low</p>
+<h3 id="fr-10-switch-viewed-household">FR-10: Switch Viewed Household<a class="headerlink" href="#fr-10-switch-viewed-household" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users who belong to multiple households to switch which household they are currently viewing at any time, without changing their active household
+<strong>Actor:</strong> Household Member
+<strong>Input:</strong> Selected household from household list
+<strong>Output:</strong> App view refreshes to show chores, members, and scoreboard for the selected household; the user's active household remains unchanged
+<strong>Priority:</strong> High</p>
+<h3 id="fr-11-switch-active-household">FR-11: Switch Active Household<a class="headerlink" href="#fr-11-switch-active-household" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to manually change their active household - the household they are physically present in and currently responsible for
+<strong>Actor:</strong> Household Member
+<strong>Input:</strong> Active household selection
+<strong>Output:</strong> User's active household updated; chore responsibilities and reminders updated accordingly
+<strong>Priority:</strong> High</p>
+<h3 id="fr-12-invite-member-to-household">FR-12: Invite Member to Household<a class="headerlink" href="#fr-12-invite-member-to-household" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow household admins to invite other users by email address to join a household
+<strong>Actor:</strong> Household Admin
+<strong>Input:</strong> Invitee email address, optional role (admin or member)
+<strong>Output:</strong> Invitation email sent to invitee; pending invitation record created in the household
+<strong>Priority:</strong> High</p>
+<h3 id="fr-13-accept-or-decline-household-invitation">FR-13: Accept or Decline Household Invitation<a class="headerlink" href="#fr-13-accept-or-decline-household-invitation" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow invited users to accept or decline a pending household invitation
+<strong>Actor:</strong> Invited User
+<strong>Input:</strong> Accept or decline action on the invitation
+<strong>Output:</strong> On accept - user added to household with the assigned role. On decline - invitation record removed
+<strong>Priority:</strong> High</p>
+<h3 id="fr-14-remove-member-from-household">FR-14: Remove Member from Household<a class="headerlink" href="#fr-14-remove-member-from-household" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow household admins to remove a member from the household
+<strong>Actor:</strong> Household Admin
+<strong>Input:</strong> Target member selection, removal confirmation
+<strong>Output:</strong> Member removed; their incomplete assigned tasks are either unassigned or redistributed per admin's choice at removal time
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-15-leave-household">FR-15: Leave Household<a class="headerlink" href="#fr-15-leave-household" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow a member to voluntarily leave a household, provided they are not the sole admin
+<strong>Actor:</strong> Household Member
+<strong>Input:</strong> Leave confirmation
+<strong>Output:</strong> Membership removed; incomplete tasks unassigned or redistributed; if the departing member is the only admin, they must promote another member first
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-16-assign-member-role">FR-16: Assign Member Role<a class="headerlink" href="#fr-16-assign-member-role" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow household admins to change the role of any other member between admin and member
+<strong>Actor:</strong> Household Admin
+<strong>Input:</strong> Target member, new role selection
+<strong>Output:</strong> Role updated; the member's available actions update accordingly
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="active-household-cross-household-interaction">Active Household &amp; Cross-Household Interaction<a class="headerlink" href="#active-household-cross-household-interaction" title="Permanent link">&para;</a></h2>
+<h3 id="fr-17-single-active-household-constraint">FR-17: Single Active Household Constraint<a class="headerlink" href="#fr-17-single-active-household-constraint" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Each user shall have exactly one active household at any given time, representing the household they are currently present in and responsible for
+<strong>Actor:</strong> System
+<strong>Input:</strong> User profile state
+<strong>Output:</strong> Exactly one household marked as active per user at all times; switching active household deactivates the previous one
+<strong>Priority:</strong> High</p>
+<h3 id="fr-18-cross-household-task-prompt">FR-18: Cross-Household Task Prompt<a class="headerlink" href="#fr-18-cross-household-task-prompt" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> When a user attempts to complete a task belonging to a household other than their currently active one, the system shall prompt them with three options
+<strong>Actor:</strong> Household Member
+<strong>Input:</strong> Complete action on a task from a non-active household
+<strong>Output:</strong> Prompt displayed with three options: (1) Switch active household to this one and complete the task, (2) Complete the task anyway without switching active household, (3) Cancel
+<strong>Priority:</strong> High</p>
+<hr />
+<h2 id="vacation-mode">Vacation Mode<a class="headerlink" href="#vacation-mode" title="Permanent link">&para;</a></h2>
+<p>Vacation mode temporarily suspends a member's chore responsibilities in their <strong>origin household</strong>. It optionally supports a <strong>destination household</strong>, which is another household the member belongs to and will be active in during the vacation period. When a destination is specified, the system treats the vacation as a temporary relocation - automatically switching the member's active household on departure and switching it back on return. The origin household's chores are paused or redistributed regardless of whether a destination is set.</p>
+<h3 id="fr-19-enable-vacation-mode-for-a-member">FR-19: Enable Vacation Mode for a Member<a class="headerlink" href="#fr-19-enable-vacation-mode-for-a-member" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow a member or a household admin to activate vacation mode for one or more members, temporarily suspending their chore responsibilities in the origin household
+<strong>Actor:</strong> Household Member / Household Admin
+<strong>Input:</strong> Target member(s), optional start date, optional end date, handling preference for origin household (pause or redistribute), optional destination household (must be a household the member already belongs to)
+<strong>Output:</strong> Targeted members marked as on vacation in the origin household; their pending tasks paused or redistributed per the selected preference; if a destination household is specified, each affected member's active household is automatically switched to the destination household
+<strong>Priority:</strong> High</p>
+<h3 id="fr-20-enable-vacation-mode-for-all-members">FR-20: Enable Vacation Mode for All Members<a class="headerlink" href="#fr-20-enable-vacation-mode-for-all-members" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow a household admin to activate vacation mode for all members of a household simultaneously, representing a scenario where the entire household relocates temporarily (e.g. everyone moves to the countryside cottage for a period)
+<strong>Actor:</strong> Household Admin
+<strong>Input:</strong> "Set all to vacation" action, optional start and end dates, handling preference (pause or redistribute), optional destination household shared by all members
+<strong>Output:</strong> All members marked as on vacation in the origin household; chores with no remaining active members paused entirely; if a destination household is specified and all members belong to it, each member's active household is switched to the destination household automatically
+<strong>Priority:</strong> High</p>
+<h3 id="fr-21-redistribute-tasks-during-vacation">FR-21: Redistribute Tasks During Vacation<a class="headerlink" href="#fr-21-redistribute-tasks-during-vacation" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> When vacation mode is activated with the "redistribute" preference, the system shall reassign the vacationing member's tasks to the remaining active members of the origin household
+<strong>Actor:</strong> System
+<strong>Input:</strong> Vacation mode activation event with redistribute preference
+<strong>Output:</strong> Tasks distributed among remaining active members of the origin household; each affected member notified of newly assigned tasks; tasks with no eligible remaining active member paused until one becomes available
+<strong>Priority:</strong> High</p>
+<h3 id="fr-22-pause-tasks-during-vacation">FR-22: Pause Tasks During Vacation<a class="headerlink" href="#fr-22-pause-tasks-during-vacation" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> When vacation mode is activated with the "pause" preference, or when no active members remain in the origin household to redistribute to, the system shall suspend all affected chores until an active member is available
+<strong>Actor:</strong> System
+<strong>Input:</strong> Vacation mode activation event with pause preference, or redistribute event with no remaining active members
+<strong>Output:</strong> Affected chore instances suspended; no reminders sent; instances resume when at least one active member is available in the origin household
+<strong>Priority:</strong> High</p>
+<h3 id="fr-23-disable-vacation-mode">FR-23: Disable Vacation Mode<a class="headerlink" href="#fr-23-disable-vacation-mode" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow a member or a household admin to deactivate vacation mode, restoring the member's active status in the origin household
+<strong>Actor:</strong> Household Member / Household Admin
+<strong>Input:</strong> Disable vacation mode action for the target member
+<strong>Output:</strong> Member marked as active in the origin household; paused tasks restored to them; redistributed tasks optionally reclaimed based on admin configuration; if a destination household was specified at activation, the member's active household is automatically switched back to the origin household
+<strong>Priority:</strong> High</p>
+<h3 id="fr-24-automatic-vacation-mode-expiry">FR-24: Automatic Vacation Mode Expiry<a class="headerlink" href="#fr-24-automatic-vacation-mode-expiry" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> When an end date was specified at activation, the system shall automatically deactivate vacation mode on that date without requiring manual action, applying the same restoration and active household switching rules as manual deactivation
+<strong>Actor:</strong> System
+<strong>Input:</strong> Scheduled vacation end event
+<strong>Output:</strong> Member returned to active status in the origin household; tasks restored; if a destination household was specified, active household switched back to origin automatically
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="permission-system">Permission System<a class="headerlink" href="#permission-system" title="Permanent link">&para;</a></h2>
+<h3 id="fr-25-assign-task-level-permissions">FR-25: Assign Task-Level Permissions<a class="headerlink" href="#fr-25-assign-task-level-permissions" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow household admins to configure which members or roles are permitted to create and to complete each chore independently
+<strong>Actor:</strong> Household Admin
+<strong>Input:</strong> Chore selection; list of permitted members or roles for each operation (create, complete)
+<strong>Output:</strong> Permission rules persisted against the chore
+<strong>Priority:</strong> High</p>
+<h3 id="fr-26-enforce-task-level-permissions">FR-26: Enforce Task-Level Permissions<a class="headerlink" href="#fr-26-enforce-task-level-permissions" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall enforce task-level permissions server-side, rejecting any create or complete operation attempted by an unauthorized member
+<strong>Actor:</strong> System
+<strong>Input:</strong> Member action on a chore
+<strong>Output:</strong> Action permitted if the member is authorized; rejected with a descriptive error message if not
+<strong>Priority:</strong> High</p>
+<hr />
+<h2 id="chore-types">Chore Types<a class="headerlink" href="#chore-types" title="Permanent link">&para;</a></h2>
+<p>Chores are classified by their <strong>assignment mode</strong>, which determines who is expected to complete them and how completion is tracked.</p>
+<h3 id="fr-27-individual-chores">FR-27: Individual Chores<a class="headerlink" href="#fr-27-individual-chores" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall support individual chores assigned to one specific member. The admin may additionally configure a fallback permission set of members who are also allowed to complete the chore, enabling redistribution when the primary assignee is unavailable (e.g. on vacation)
+<strong>Actor:</strong> Household Admin / Permitted Member
+<strong>Input:</strong> Assignee mode set to "individual", primary assignee selected, optional fallback completer list or role
+<strong>Output:</strong> A single chore instance created targeting the specified member; only the assigned member (or configured fallback members) may complete it
+<strong>Priority:</strong> High</p>
+<h3 id="fr-28-group-chores">FR-28: Group Chores<a class="headerlink" href="#fr-28-group-chores" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall support group chores assigned to a manually selected subset of household members, where each targeted member must complete their own independent instance
+<strong>Actor:</strong> Household Admin / Permitted Member
+<strong>Input:</strong> Assignee mode set to "group", explicit member selection
+<strong>Output:</strong> A separate chore instance generated for each selected member; each member's completion tracked independently; chore considered fully complete only when all selected members have completed their instance
+<strong>Priority:</strong> High</p>
+<h3 id="fr-29-all-members-chores">FR-29: All-Members Chores<a class="headerlink" href="#fr-29-all-members-chores" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall support all-members chores that behave identically to group chores but automatically target every current active member of the household, without requiring manual member selection
+<strong>Actor:</strong> Household Admin / Permitted Member
+<strong>Input:</strong> Assignee mode set to "all members"
+<strong>Output:</strong> A separate chore instance generated for every active household member; new active members added to the household are included in future instances; completion tracked per member
+<strong>Priority:</strong> High</p>
+<h3 id="fr-30-household-single-action-chores">FR-30: Household Single-Action Chores<a class="headerlink" href="#fr-30-household-single-action-chores" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall support household single-action chores, where the task needs to be completed once by any one eligible member on behalf of the whole household. The chore may optionally be pre-assigned to a specific member, with configurable fallback to all eligible members when that member is unavailable
+<strong>Actor:</strong> Household Admin / Permitted Member
+<strong>Input:</strong> Assignee mode set to "household single action", optional primary assignee, permission rules for who may complete it
+<strong>Output:</strong> A single shared chore instance created; once any one eligible member completes it, the chore is marked done for the entire household and removed from all other members' lists
+<strong>Priority:</strong> High</p>
+<h3 id="fr-31-personal-chores">FR-31: Personal Chores<a class="headerlink" href="#fr-31-personal-chores" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall support personal chores that are not connected to any household and are visible only to the creating user by default. Personal chores appear in the user's personal chore list and contribute exclusively to their personal scoreboard
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Chore created with scope set to "personal"
+<strong>Output:</strong> Chore created and associated with the user's personal scope only; not visible to any household or other users unless explicitly shared
+<strong>Priority:</strong> High</p>
+<hr />
+<h2 id="chore-management">Chore Management<a class="headerlink" href="#chore-management" title="Permanent link">&para;</a></h2>
+<h3 id="fr-32-create-chore">FR-32: Create Chore<a class="headerlink" href="#fr-32-create-chore" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow authorized users to create a new chore within the active household or in their personal scope
+<strong>Actor:</strong> Household Admin / Permitted Member / Authenticated User
+<strong>Input:</strong> Title, optional description, scope (personal or household), assignment mode (individual / group / all members / household single action), schedule type (recurring or one-off), due date or recurrence rule, target assignee(s) where applicable, permission rules, tags, optional steps
+<strong>Output:</strong> Chore created and scheduled; assigned members notified
+<strong>Priority:</strong> High</p>
+<h3 id="fr-33-edit-chore">FR-33: Edit Chore<a class="headerlink" href="#fr-33-edit-chore" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow authorized users to modify the configuration of an existing chore
+<strong>Actor:</strong> Household Admin / Permitted Member / Chore Owner (for personal chores)
+<strong>Input:</strong> Updated chore fields
+<strong>Output:</strong> Chore record updated; if the schedule changed, upcoming instances are recalculated; affected members notified of relevant changes
+<strong>Priority:</strong> High</p>
+<h3 id="fr-34-delete-chore">FR-34: Delete Chore<a class="headerlink" href="#fr-34-delete-chore" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow household admins (for household chores) or the owning user (for personal chores) to permanently delete a chore and cancel all upcoming scheduled instances
+<strong>Actor:</strong> Household Admin / Chore Owner
+<strong>Input:</strong> Chore selection, delete confirmation
+<strong>Output:</strong> Chore and all pending instances removed; completion history retained for scoreboard integrity
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-35-complete-chore">FR-35: Complete Chore<a class="headerlink" href="#fr-35-complete-chore" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow a permitted member to mark a chore instance as completed
+<strong>Actor:</strong> Permitted Member / Chore Owner
+<strong>Input:</strong> Complete action on a chore instance
+<strong>Output:</strong> Completion recorded with timestamp and member identity; scoreboard updated; next recurrence scheduled if applicable
+<strong>Priority:</strong> High</p>
+<h3 id="fr-36-recurring-chores">FR-36: Recurring Chores<a class="headerlink" href="#fr-36-recurring-chores" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall support recurring chores with configurable frequency rules, automatically generating new instances on schedule
+<strong>Actor:</strong> Household Admin / Permitted Member / Chore Owner
+<strong>Input:</strong> Recurrence rule (e.g. daily, specific days of the week, weekly, monthly, or a custom interval), optional end condition (end date or total occurrence count)
+<strong>Output:</strong> Chore instances created automatically according to the recurrence rule until the end condition is met or the chore is deleted
+<strong>Priority:</strong> High</p>
+<h3 id="fr-37-one-off-chores">FR-37: One-off Chores<a class="headerlink" href="#fr-37-one-off-chores" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall support one-off chores with a single due date that are automatically archived after completion or after the due date has passed
+<strong>Actor:</strong> Household Admin / Permitted Member / Chore Owner
+<strong>Input:</strong> Single due date/time
+<strong>Output:</strong> One chore instance created; archived upon completion or expiry; recorded in history
+<strong>Priority:</strong> High</p>
+<h3 id="fr-38-multi-step-chores">FR-38: Multi-step Chores<a class="headerlink" href="#fr-38-multi-step-chores" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall support chores composed of sequential named steps, where each step must be marked complete before the next becomes available
+<strong>Actor:</strong> Household Admin / Permitted Member / Chore Owner
+<strong>Input:</strong> Ordered list of step names (e.g. Load → Hang → Fold), optional per-step assignee or permission overrides
+<strong>Output:</strong> Chore displayed with step progression indicator; subsequent steps locked until previous steps are completed; each step completion recorded separately for history
+<strong>Priority:</strong> High</p>
+<h3 id="fr-39-view-chore-history">FR-39: View Chore History<a class="headerlink" href="#fr-39-view-chore-history" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow household members to view the full completion history of any household chore, and any user to view the history of their own personal chores
+<strong>Actor:</strong> Household Member / Authenticated User
+<strong>Input:</strong> Chore selection, history view
+<strong>Output:</strong> Chronological log of completed instances, each showing completing member name, timestamp, and step-level detail for multi-step chores
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="personal-chore-sharing">Personal Chore Sharing<a class="headerlink" href="#personal-chore-sharing" title="Permanent link">&para;</a></h2>
+<h3 id="fr-40-share-personal-chores-with-another-user">FR-40: Share Personal Chores with Another User<a class="headerlink" href="#fr-40-share-personal-chores-with-another-user" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow a user to share selected personal chores or groups of personal chores (by tag) with a specific other user account, granting them view-only access to progress and completion status
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Chore or tag selection, target user account
+<strong>Output:</strong> Shared chores visible to the target user in a read-only view; the target user receives a sharing invitation and must accept before gaining access
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-41-share-personal-chores-with-a-household">FR-41: Share Personal Chores with a Household<a class="headerlink" href="#fr-41-share-personal-chores-with-a-household" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow a user to share selected personal chores or groups of personal chores (by tag) with an entire household they belong to, granting all household members view-only access to progress and completion status
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Chore or tag selection, target household
+<strong>Output:</strong> Shared chores visible to all members of the target household in a read-only view
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-42-revoke-personal-chore-sharing">FR-42: Revoke Personal Chore Sharing<a class="headerlink" href="#fr-42-revoke-personal-chore-sharing" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow a user to revoke previously granted sharing access for a specific user or household at any time
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Sharing record selection, revoke action
+<strong>Output:</strong> Access removed; shared chores no longer visible to the revoked party
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="task-presets">Task Presets<a class="headerlink" href="#task-presets" title="Permanent link">&para;</a></h2>
+<h3 id="fr-43-browse-preset-library">FR-43: Browse Preset Library<a class="headerlink" href="#fr-43-browse-preset-library" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall provide a built-in library of common chore presets that users can browse and search
+<strong>Actor:</strong> Household Admin / Permitted Member
+<strong>Input:</strong> Open preset library, optional search query or filter
+<strong>Output:</strong> List of available presets with a preview of their default configuration (schedule, steps, tags)
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-44-create-chore-from-preset">FR-44: Create Chore from Preset<a class="headerlink" href="#fr-44-create-chore-from-preset" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to create a new chore by selecting a preset, with all default fields pre-populated and fully editable before saving
+<strong>Actor:</strong> Household Admin / Permitted Member
+<strong>Input:</strong> Preset selection, optional field overrides
+<strong>Output:</strong> Chore creation form opened with preset defaults applied; user can adjust any field before confirming
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-45-save-configuration-as-custom-preset">FR-45: Save Configuration as Custom Preset<a class="headerlink" href="#fr-45-save-configuration-as-custom-preset" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow household admins to save an existing chore's configuration as a reusable custom preset, available within that household
+<strong>Actor:</strong> Household Admin
+<strong>Input:</strong> Chore selection, custom preset name
+<strong>Output:</strong> Custom preset saved to the household's preset library and available for future chore creation
+<strong>Priority:</strong> Low</p>
+<hr />
+<h2 id="tags">Tags<a class="headerlink" href="#tags" title="Permanent link">&para;</a></h2>
+<h3 id="fr-46-manage-tags">FR-46: Manage Tags<a class="headerlink" href="#fr-46-manage-tags" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow household admins to create, rename, and delete tags within a household; users may also manage tags within their personal chore scope
+<strong>Actor:</strong> Household Admin / Authenticated User
+<strong>Input:</strong> Tag name, optional colour
+<strong>Output:</strong> Tag created, renamed, or deleted; deletion removes the tag from all associated chores without deleting the chores themselves
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-47-assign-tags-to-chores">FR-47: Assign Tags to Chores<a class="headerlink" href="#fr-47-assign-tags-to-chores" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow authorized users to assign one or more tags to a chore at creation time or when editing
+<strong>Actor:</strong> Household Admin / Permitted Member / Chore Owner
+<strong>Input:</strong> Chore creation or edit form, tag selection
+<strong>Output:</strong> Selected tags associated with the chore
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-48-filter-chores-by-tag">FR-48: Filter Chores by Tag<a class="headerlink" href="#fr-48-filter-chores-by-tag" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow members to filter the chore list by one or more tags
+<strong>Actor:</strong> Household Member / Authenticated User
+<strong>Input:</strong> Tag filter selection (single or multi-select)
+<strong>Output:</strong> Chore list filtered to show only chores that match all selected tags
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="scheduling-and-reminders">Scheduling and Reminders<a class="headerlink" href="#scheduling-and-reminders" title="Permanent link">&para;</a></h2>
+<h3 id="fr-49-configure-reminder-timing">FR-49: Configure Reminder Timing<a class="headerlink" href="#fr-49-configure-reminder-timing" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow per-chore configuration of one or more reminder offsets, specifying how far in advance of the due time notifications should be sent
+<strong>Actor:</strong> Household Admin / Permitted Member / Chore Owner
+<strong>Input:</strong> One or more reminder offsets per chore (e.g. 30 minutes before, 1 day before)
+<strong>Output:</strong> Reminder schedule saved and linked to the chore
+<strong>Priority:</strong> High</p>
+<h3 id="fr-50-send-push-notifications-for-due-chores">FR-50: Send Push Notifications for Due Chores<a class="headerlink" href="#fr-50-send-push-notifications-for-due-chores" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall send push notifications to all eligible members of a chore when a configured reminder threshold is reached or when the chore becomes due
+<strong>Actor:</strong> System
+<strong>Input:</strong> Scheduled reminder event
+<strong>Output:</strong> Push notification delivered to eligible members' devices; notification includes chore title, due time, and a claim action
+<strong>Priority:</strong> High</p>
+<h3 id="fr-50a-suppress-notifications-during-busy-calendar-periods">FR-50A: Suppress Notifications During Busy Calendar Periods<a class="headerlink" href="#fr-50a-suppress-notifications-during-busy-calendar-periods" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to suppress due chore notifications while they are marked as busy in a connected or imported calendar
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Notification preference enabled, connected/imported calendar events marked as busy
+<strong>Output:</strong> Chore notifications delayed, skipped, or rescheduled when the user is currently busy according to their calendar data
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-50b-delay-notifications-until-free-time">FR-50B: Delay Notifications Until Free Time<a class="headerlink" href="#fr-50b-delay-notifications-until-free-time" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> When notification suppression during busy periods is enabled, the system shall deliver the reminder at the next available non-busy time slot before the chore due time where possible
+<strong>Actor:</strong> System
+<strong>Input:</strong> Scheduled reminder event, user busy/free calendar state
+<strong>Output:</strong> Reminder delivered at the next available non-busy time slot, or skipped if no suitable slot exists before the due time
+<strong>Priority:</strong> Low</p>
+<hr />
+<h2 id="notification-claiming">Notification Claiming<a class="headerlink" href="#notification-claiming" title="Permanent link">&para;</a></h2>
+<h3 id="fr-51-broadcast-task-notification-to-multiple-members">FR-51: Broadcast Task Notification to Multiple Members<a class="headerlink" href="#fr-51-broadcast-task-notification-to-multiple-members" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> When a chore is due and has more than one eligible member, the system shall notify all of them simultaneously
+<strong>Actor:</strong> System
+<strong>Input:</strong> Due chore event, list of eligible members
+<strong>Output:</strong> Notification delivered to all eligible members concurrently
+<strong>Priority:</strong> High</p>
+<h3 id="fr-52-claim-a-task">FR-52: Claim a Task<a class="headerlink" href="#fr-52-claim-a-task" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow an eligible member to claim a chore by tapping "I'll do it" in the notification or from within the app
+<strong>Actor:</strong> Household Member
+<strong>Input:</strong> Claim action on a due chore notification or chore list entry
+<strong>Output:</strong> Chore instance assigned to the claiming member; notification dismissed from all other eligible members' devices; chore appears in the claimant's active task list
+<strong>Priority:</strong> High</p>
+<h3 id="fr-53-release-a-claimed-task">FR-53: Release a Claimed Task<a class="headerlink" href="#fr-53-release-a-claimed-task" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow a member who has claimed a task to release it, making it claimable again
+<strong>Actor:</strong> Household Member
+<strong>Input:</strong> Release action on a currently claimed chore
+<strong>Output:</strong> Claim removed; all other eligible members re-notified that the task is available
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="views-and-scoreboards">Views and Scoreboards<a class="headerlink" href="#views-and-scoreboards" title="Permanent link">&para;</a></h2>
+<h3 id="fr-54-my-chores-view">FR-54: My Chores View<a class="headerlink" href="#fr-54-my-chores-view" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall provide a "My Chores" view showing the current user's personal chores and all household chores assigned to them, consolidated in a single list
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Navigate to My Chores view
+<strong>Output:</strong> Combined list of the user's personal chores and household chores assigned to them, ordered by due date; each chore visually distinguished as personal or household
+<strong>Priority:</strong> High</p>
+<h3 id="fr-55-household-chores-view">FR-55: Household Chores View<a class="headerlink" href="#fr-55-household-chores-view" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall provide a "Household Chores" view showing all chores within the currently viewed household, each decorated with the profile image(s) of their assigned member(s)
+<strong>Actor:</strong> Household Member
+<strong>Input:</strong> Navigate to Household Chores view
+<strong>Output:</strong> Full list of household chores with assignee avatars visible inline; filterable by tag, status, or assignment mode
+<strong>Priority:</strong> High</p>
+<h3 id="fr-56-household-leaderboard-view">FR-56: Household Leaderboard View<a class="headerlink" href="#fr-56-household-leaderboard-view" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall display a leaderboard for each household showing each member's completed chore count and contribution score over a selectable time period
+<strong>Actor:</strong> Household Member
+<strong>Input:</strong> Navigate to Leaderboard view, optional time period filter (current week, current month, all time)
+<strong>Output:</strong> Ranked list of household members with their completion count and relative contribution percentage for the selected period; updated in real time when any chore is completed
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-57-profile-view-with-personal-scoreboard">FR-57: Profile View with Personal Scoreboard<a class="headerlink" href="#fr-57-profile-view-with-personal-scoreboard" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall provide a Profile view showing the user's account information alongside their personal scoreboard, which tracks completion of personal chores only and is visible exclusively to the user themselves
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Navigate to Profile view
+<strong>Output:</strong> User's display name, avatar, and personal chore completion statistics over selectable time periods; personal scoreboard entirely separate from any household leaderboard
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-58-update-scoreboards-on-completion">FR-58: Update Scoreboards on Completion<a class="headerlink" href="#fr-58-update-scoreboards-on-completion" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall update the relevant scoreboard automatically and in real time when any chore is marked as completed
+<strong>Actor:</strong> System
+<strong>Input:</strong> Chore completion event with completing member identity and chore scope
+<strong>Output:</strong> If a household chore - completing member's score on the household leaderboard incremented and visible to all household members. If a personal chore - user's personal scoreboard updated, visible only to themselves
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="calendar-integration">Calendar Integration<a class="headerlink" href="#calendar-integration" title="Permanent link">&para;</a></h2>
+<h3 id="fr-59-calendar-view">FR-59: Calendar View<a class="headerlink" href="#fr-59-calendar-view" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall provide a calendar view showing chores, reminders, and optionally connected schedule events by date and time
+<strong>Actor:</strong> Authenticated User / Household Member
+<strong>Input:</strong> Navigate to Calendar view, optional date range or filter
+<strong>Output:</strong> Calendar displaying personal chores and chores from the currently viewed household, grouped by due date and time
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-60-export-chores-to-external-calendar">FR-60: Export Chores to External Calendar<a class="headerlink" href="#fr-60-export-chores-to-external-calendar" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to export their chores to an external calendar-compatible format
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Export request for personal chores and optionally assigned household chores
+<strong>Output:</strong> Private iCal/ICS feed URL or downloadable ICS file generated for use in third-party calendar applications
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-61-import-external-schedule">FR-61: Import External Schedule<a class="headerlink" href="#fr-61-import-external-schedule" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to import schedule data from an external calendar source
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> ICS file upload or private calendar feed URL
+<strong>Output:</strong> Imported events displayed in the app calendar view as read-only schedule items
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-62-connect-google-calendar">FR-62: Connect Google Calendar<a class="headerlink" href="#fr-62-connect-google-calendar" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to connect their Google Calendar account and synchronise selected calendar events into the application
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Google OAuth authorization, selected calendar(s), sync preferences
+<strong>Output:</strong> Selected Google Calendar events displayed in the application calendar view; optional export of chores to the connected Google Calendar
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-63-use-device-calendar-on-ios">FR-63: Use Device Calendar on iOS<a class="headerlink" href="#fr-63-use-device-calendar-on-ios" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The iOS application shall allow users to view and optionally export chores to their device calendar using platform calendar permissions
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Calendar access permission grant, optional export action
+<strong>Output:</strong> Device calendar events displayed alongside chores and/or chores exported to the selected device calendar
+<strong>Priority:</strong> Low</p>
+<h3 id="fr-64-create-personal-availability-events">FR-64: Create Personal Availability Events<a class="headerlink" href="#fr-64-create-personal-availability-events" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to create personal availability or unavailability events such as classes, work shifts, or appointments
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Event title, start time, end time, optional recurrence rule
+<strong>Output:</strong> Event displayed in the user's calendar and used to indicate occupied time slots
+<strong>Priority:</strong> Low</p>
+<hr />
+<h2 id="today-widget">Today Widget<a class="headerlink" href="#today-widget" title="Permanent link">&para;</a></h2>
+<h3 id="fr-65-display-todays-tasks-in-home-screen-widget">FR-65: Display Today's Tasks in Home Screen Widget<a class="headerlink" href="#fr-65-display-todays-tasks-in-home-screen-widget" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall provide a home screen widget that shows the authenticated user's chores due today from their currently active household and their personal chores, without requiring the app to be opened
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Widget placed on the device home screen
+<strong>Output:</strong> Scrollable list of today's due chores from the active household and personal scope rendered in the widget, refreshed at a configured interval or when the underlying data changes
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-66-interact-with-widget-tasks">FR-66: Interact with Widget Tasks<a class="headerlink" href="#fr-66-interact-with-widget-tasks" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow the user to interact with chore entries directly in the widget
+<strong>Actor:</strong> Authenticated User
+<strong>Input:</strong> Tap on a chore entry in the widget
+<strong>Output:</strong> If the user taps a complete action - chore marked as complete without opening the app. If the user taps the chore title - app opens to the full chore detail screen via deep link
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="self-hosting">Self-Hosting<a class="headerlink" href="#self-hosting" title="Permanent link">&para;</a></h2>
+<h3 id="fr-67-deploy-a-private-backend-instance">FR-67: Deploy a Private Backend Instance<a class="headerlink" href="#fr-67-deploy-a-private-backend-instance" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall provide official container images and configuration documentation to allow technically proficient users to self-host the backend
+<strong>Actor:</strong> Self-Hosting User
+<strong>Input:</strong> Docker Compose file or equivalent deployment configuration with required environment variables
+<strong>Output:</strong> A fully operational private backend instance serving all API endpoints consumed by the client applications
+<strong>Priority:</strong> Medium</p>
+<h3 id="fr-68-point-client-to-custom-backend">FR-68: Point Client to Custom Backend<a class="headerlink" href="#fr-68-point-client-to-custom-backend" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The system shall allow users to configure the client application to communicate with a custom backend URL instead of the default hosted service
+<strong>Actor:</strong> Self-Hosting User
+<strong>Input:</strong> Custom server base URL entered in the app's server settings screen
+<strong>Output:</strong> All API calls, authentication flows, and push notification registrations directed exclusively to the specified backend instance
+<strong>Priority:</strong> Medium</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

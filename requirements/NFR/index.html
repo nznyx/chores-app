@@ -1,0 +1,2181 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Household chore management app — documentation">
+      
+      
+      
+      
+        <link rel="prev" href="../FR/">
+      
+      
+        <link rel="next" href="../../development/makefile/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Non-functional - Chores App</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#non-functional-requirements" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Chores App" class="md-header__button md-logo" aria-label="Chores App" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Chores App
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Non-functional
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nznyx/chores-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nznyx/chores-app
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../FR/" class="md-tabs__link">
+          
+  
+  
+  Requirements
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../development/makefile/" class="md-tabs__link">
+          
+  
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Chores App" class="md-nav__button md-logo" aria-label="Chores App" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Chores App
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nznyx/chores-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nznyx/chores-app
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Requirements
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Non-functional
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Non-functional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-01-api-response-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-01: API Response Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-02-app-cold-start-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-02: App Cold Start Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-03-widget-refresh-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-03: Widget Refresh Latency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-04-real-time-scoreboard-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-04: Real-Time Scoreboard Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-05-push-notification-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-05: Push Notification Delivery
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scalability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scalability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-06-concurrent-user-support-hosted-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-06: Concurrent User Support (Hosted Service)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-07-self-hosted-instance-footprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-07: Self-Hosted Instance Footprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reliability-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reliability &amp; Availability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reliability &amp; Availability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-08-hosted-service-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-08: Hosted Service Availability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-09-graceful-offline-degradation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-09: Graceful Offline Degradation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-10-offline-write-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-10: Offline Write Consistency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-11-scheduled-job-reliability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-11: Scheduled Job Reliability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-12-encryption-in-transit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-12: Encryption in Transit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-13-encryption-at-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-13: Encryption at Rest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-14-token-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-14: Token Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-15-server-side-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-15: Server-Side Authorization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-16-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-16: Rate Limiting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-17-input-validation-and-sanitisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-17: Input Validation and Sanitisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Support
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-18-android-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-18: Android Support
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-19-ios-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-19: iOS Support
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-20-responsive-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-20: Responsive Layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#offline-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Offline Support
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Offline Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-21-offline-read-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-21: Offline Read Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-22-offline-write-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-22: Offline Write Queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-hosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Self-Hosting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Self-Hosting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-23-container-based-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-23: Container-Based Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-24-no-mandatory-external-cloud-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-24: No Mandatory External Cloud Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-25-local-network-accessibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-25: Local Network Accessibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-26-push-notifications-for-self-hosted-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-26: Push Notifications for Self-Hosted Instances
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-27-data-backup-and-restore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-27: Data Backup and Restore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-28-version-upgrade-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-28: Version Upgrade Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data &amp; Privacy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data &amp; Privacy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-29-household-data-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-29: Household Data Isolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-30-personal-chore-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-30: Personal Chore Privacy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-31-user-data-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-31: User Data Export
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-32-account-deletion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-32: Account Deletion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accessibility
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accessibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-33-screen-reader-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-33: Screen Reader Support
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-34-dynamic-font-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-34: Dynamic Font Scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-35-colour-contrast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-35: Colour Contrast
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintainability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintainability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Maintainability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-36-shared-business-logic-via-kmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-36: Shared Business Logic via KMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-37-api-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-37: API Versioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-38-logging-and-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-38: Logging and Observability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#localisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Localisation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Localisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-39-internationalisation-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-39: Internationalisation Readiness
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/makefile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Makefile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-01-api-response-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-01: API Response Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-02-app-cold-start-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-02: App Cold Start Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-03-widget-refresh-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-03: Widget Refresh Latency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-04-real-time-scoreboard-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-04: Real-Time Scoreboard Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-05-push-notification-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-05: Push Notification Delivery
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scalability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scalability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-06-concurrent-user-support-hosted-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-06: Concurrent User Support (Hosted Service)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-07-self-hosted-instance-footprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-07: Self-Hosted Instance Footprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reliability-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reliability &amp; Availability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reliability &amp; Availability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-08-hosted-service-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-08: Hosted Service Availability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-09-graceful-offline-degradation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-09: Graceful Offline Degradation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-10-offline-write-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-10: Offline Write Consistency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-11-scheduled-job-reliability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-11: Scheduled Job Reliability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-12-encryption-in-transit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-12: Encryption in Transit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-13-encryption-at-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-13: Encryption at Rest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-14-token-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-14: Token Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-15-server-side-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-15: Server-Side Authorization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-16-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-16: Rate Limiting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-17-input-validation-and-sanitisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-17: Input Validation and Sanitisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Support
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-18-android-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-18: Android Support
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-19-ios-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-19: iOS Support
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-20-responsive-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-20: Responsive Layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#offline-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Offline Support
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Offline Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-21-offline-read-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-21: Offline Read Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-22-offline-write-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-22: Offline Write Queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-hosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Self-Hosting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Self-Hosting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-23-container-based-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-23: Container-Based Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-24-no-mandatory-external-cloud-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-24: No Mandatory External Cloud Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-25-local-network-accessibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-25: Local Network Accessibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-26-push-notifications-for-self-hosted-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-26: Push Notifications for Self-Hosted Instances
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-27-data-backup-and-restore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-27: Data Backup and Restore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-28-version-upgrade-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-28: Version Upgrade Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data &amp; Privacy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data &amp; Privacy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-29-household-data-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-29: Household Data Isolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-30-personal-chore-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-30: Personal Chore Privacy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-31-user-data-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-31: User Data Export
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-32-account-deletion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-32: Account Deletion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accessibility
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accessibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-33-screen-reader-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-33: Screen Reader Support
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-34-dynamic-font-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-34: Dynamic Font Scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-35-colour-contrast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-35: Colour Contrast
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintainability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintainability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Maintainability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-36-shared-business-logic-via-kmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-36: Shared Business Logic via KMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-37-api-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-37: API Versioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-38-logging-and-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-38: Logging and Observability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#localisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Localisation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Localisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfr-39-internationalisation-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR-39: Internationalisation Readiness
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="non-functional-requirements">Non-Functional Requirements<a class="headerlink" href="#non-functional-requirements" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h2>
+<h3 id="nfr-01-api-response-time">NFR-01: API Response Time<a class="headerlink" href="#nfr-01-api-response-time" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> All standard API endpoints shall respond within an acceptable time under normal load
+<strong>Rationale:</strong> Slow responses degrade the experience, especially for chore completion and real-time scoreboard updates
+<strong>Criteria:</strong> 95th percentile response time ≤ 300ms under normal load; ≤ 1s under peak load
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-02-app-cold-start-time">NFR-02: App Cold Start Time<a class="headerlink" href="#nfr-02-app-cold-start-time" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The application shall reach an interactive state quickly after launch
+<strong>Rationale:</strong> Users typically open the app briefly to check or complete tasks; a slow start creates friction
+<strong>Criteria:</strong> Cold start to interactive state ≤ 2 seconds on mid-range Android and iOS devices
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-03-widget-refresh-latency">NFR-03: Widget Refresh Latency<a class="headerlink" href="#nfr-03-widget-refresh-latency" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The home screen widget shall reflect up-to-date task data within a reasonable time window
+<strong>Rationale:</strong> Stale widget data causes users to miss new tasks or attempt to complete already-finished ones
+<strong>Criteria:</strong> Widget data refreshed within 15 minutes of any underlying data change; refreshed immediately upon foreground app sync
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-04-real-time-scoreboard-update">NFR-04: Real-Time Scoreboard Update<a class="headerlink" href="#nfr-04-real-time-scoreboard-update" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Scoreboard updates triggered by chore completions shall be reflected to all active household members with minimal delay
+<strong>Rationale:</strong> Real-time feedback reinforces the collaborative and gamified nature of the scoreboard
+<strong>Criteria:</strong> Scoreboard update visible to all active members within 3 seconds of the completion event under normal network conditions
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-05-push-notification-delivery">NFR-05: Push Notification Delivery<a class="headerlink" href="#nfr-05-push-notification-delivery" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Push notifications for due chores and task claim events shall be delivered promptly
+<strong>Rationale:</strong> Late notifications for due chores or task releases undermine the notification claiming flow
+<strong>Criteria:</strong> Notifications delivered within 10 seconds of the triggering event under normal conditions; delivery subject to platform APNs/FCM constraints outside the system's control
+<strong>Priority:</strong> High</p>
+<hr />
+<h2 id="scalability">Scalability<a class="headerlink" href="#scalability" title="Permanent link">&para;</a></h2>
+<h3 id="nfr-06-concurrent-user-support-hosted-service">NFR-06: Concurrent User Support (Hosted Service)<a class="headerlink" href="#nfr-06-concurrent-user-support-hosted-service" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The hosted backend shall support a meaningful number of concurrent active users without performance degradation
+<strong>Rationale:</strong> The app serves families and couples across multiple households; the hosted service must scale to a viable user base
+<strong>Criteria:</strong> System maintains NFR-01 response time targets with up to 10,000 concurrent active users; architecture horizontally scalable beyond this threshold
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-07-self-hosted-instance-footprint">NFR-07: Self-Hosted Instance Footprint<a class="headerlink" href="#nfr-07-self-hosted-instance-footprint" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> A self-hosted backend instance shall be operable on modest hardware typical of a home server or small VPS
+<strong>Rationale:</strong> Self-hosters commonly run on low-power hardware such as a Raspberry Pi or a budget VPS; the backend must not require enterprise-grade resources
+<strong>Criteria:</strong> Fully functional instance operable on a single machine with 1 vCPU and 512MB RAM for a household of up to 20 members
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="reliability-availability">Reliability &amp; Availability<a class="headerlink" href="#reliability-availability" title="Permanent link">&para;</a></h2>
+<h3 id="nfr-08-hosted-service-availability">NFR-08: Hosted Service Availability<a class="headerlink" href="#nfr-08-hosted-service-availability" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The hosted backend service shall maintain high availability
+<strong>Rationale:</strong> Chore reminders and notifications are time-sensitive; prolonged downtime causes missed tasks and broken household routines
+<strong>Criteria:</strong> Monthly uptime ≥ 99.5%; planned maintenance windows communicated at least 24 hours in advance
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-09-graceful-offline-degradation">NFR-09: Graceful Offline Degradation<a class="headerlink" href="#nfr-09-graceful-offline-degradation" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The client application shall remain partially usable when the device has no network connectivity
+<strong>Rationale:</strong> Users should be able to view and complete tasks even in areas with poor or absent connectivity
+<strong>Criteria:</strong> Previously loaded chore lists for the active household and personal scope readable offline; user clearly informed of offline state and data freshness
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-10-offline-write-consistency">NFR-10: Offline Write Consistency<a class="headerlink" href="#nfr-10-offline-write-consistency" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Write actions performed offline shall be queued locally and applied to the server in a consistent, conflict-aware manner upon reconnection
+<strong>Rationale:</strong> Multiple users completing the same household single-action chore offline could produce duplicate completions; conflicts must be resolved gracefully
+<strong>Criteria:</strong> Server resolves conflicts by timestamp; duplicate completions for single-action chores deduplicated server-side; user notified if their queued action was superseded by another member's action
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-11-scheduled-job-reliability">NFR-11: Scheduled Job Reliability<a class="headerlink" href="#nfr-11-scheduled-job-reliability" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Recurring chore instance generation, vacation mode expiry, and reminder dispatch shall execute reliably and on schedule
+<strong>Rationale:</strong> Missed scheduled jobs result in absent chore instances, unrestored vacation tasks, and undelivered reminders
+<strong>Criteria:</strong> Scheduled jobs execute within 60 seconds of their scheduled time; jobs missed due to downtime are recovered and executed upon service restart with no silent data loss
+<strong>Priority:</strong> High</p>
+<hr />
+<h2 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
+<h3 id="nfr-12-encryption-in-transit">NFR-12: Encryption in Transit<a class="headerlink" href="#nfr-12-encryption-in-transit" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> All communication between client and server shall be encrypted
+<strong>Rationale:</strong> User credentials, chore data, and household membership information must not be interceptable in transit
+<strong>Criteria:</strong> All API communication over HTTPS with TLS 1.2 or higher; plain HTTP connections rejected or permanently redirected
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-13-encryption-at-rest">NFR-13: Encryption at Rest<a class="headerlink" href="#nfr-13-encryption-at-rest" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Sensitive user data stored in the database shall be protected at rest
+<strong>Rationale:</strong> Protects user data in the event of a storage-level compromise
+<strong>Criteria:</strong> Passwords stored as salted hashes using bcrypt or Argon2; personally identifiable information encrypted at the database layer
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-14-token-security">NFR-14: Token Security<a class="headerlink" href="#nfr-14-token-security" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Access tokens shall be short-lived and refresh tokens shall be securely stored and rotated on each use
+<strong>Rationale:</strong> Limits the blast radius of a compromised token
+<strong>Criteria:</strong> Access token TTL ≤ 15 minutes; refresh tokens stored in HttpOnly cookies or secure platform device storage; refresh tokens rotated on each use and fully invalidated on logout
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-15-server-side-authorization">NFR-15: Server-Side Authorization<a class="headerlink" href="#nfr-15-server-side-authorization" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> All permission and role checks shall be enforced server-side; client-side enforcement is for UX guidance only
+<strong>Rationale:</strong> A malicious or modified client must not be able to bypass permission rules by manipulating UI state
+<strong>Criteria:</strong> Every API endpoint validates the requesting user's permissions against the server-side permission model before executing any action; no endpoint trusts client-reported role or permission state
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-16-rate-limiting">NFR-16: Rate Limiting<a class="headerlink" href="#nfr-16-rate-limiting" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The API shall apply rate limiting to prevent abuse and brute-force attacks
+<strong>Rationale:</strong> Authentication endpoints are particularly vulnerable to credential stuffing; all endpoints need protection against bulk abuse
+<strong>Criteria:</strong> Authentication endpoints limited to 10 attempts per minute per IP; general API endpoints limited to 300 requests per minute per authenticated user; limits configurable for self-hosted instances
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-17-input-validation-and-sanitisation">NFR-17: Input Validation and Sanitisation<a class="headerlink" href="#nfr-17-input-validation-and-sanitisation" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> All user-supplied input shall be validated and sanitised server-side before processing or storage
+<strong>Rationale:</strong> Prevents injection attacks, malformed data, and unexpected application behaviour
+<strong>Criteria:</strong> All inputs validated against defined schemas; string fields sanitised to prevent XSS and SQL injection; validation errors returned with descriptive, non-leaking messages
+<strong>Priority:</strong> High</p>
+<hr />
+<h2 id="platform-support">Platform Support<a class="headerlink" href="#platform-support" title="Permanent link">&para;</a></h2>
+<h3 id="nfr-18-android-support">NFR-18: Android Support<a class="headerlink" href="#nfr-18-android-support" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The application shall support Android devices running a reasonably modern OS version
+<strong>Rationale:</strong> Wide Android version coverage maximises the reachable user base
+<strong>Criteria:</strong> Full functionality on Android API level 26 (Android 8.0) and above; home screen widget requires Android API level 26 minimum
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-19-ios-support">NFR-19: iOS Support<a class="headerlink" href="#nfr-19-ios-support" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The application shall support iOS devices running a reasonably modern OS version
+<strong>Rationale:</strong> iOS is a primary target platform alongside Android
+<strong>Criteria:</strong> Full functionality on iOS 15 and above; home screen widget requires iOS 16 (WidgetKit) minimum
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-20-responsive-layout">NFR-20: Responsive Layout<a class="headerlink" href="#nfr-20-responsive-layout" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The application UI shall adapt appropriately to different screen sizes and orientations
+<strong>Rationale:</strong> The KMP/CMP stack may target multiple form factors; layouts must not break on tablets or in landscape mode
+<strong>Criteria:</strong> All screens usable in both portrait and landscape orientations on phones; tablet layouts make use of additional screen real estate where appropriate
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="offline-support">Offline Support<a class="headerlink" href="#offline-support" title="Permanent link">&para;</a></h2>
+<h3 id="nfr-21-offline-read-access">NFR-21: Offline Read Access<a class="headerlink" href="#nfr-21-offline-read-access" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The application shall cache sufficient data locally to allow users to view their assigned and personal chores without a network connection
+<strong>Rationale:</strong> Users in areas with unreliable connectivity must still be able to see their tasks
+<strong>Criteria:</strong> Most recently fetched chore data for the active household and personal scope available offline; cache age indicated to the user when viewing stale data
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-22-offline-write-queue">NFR-22: Offline Write Queue<a class="headerlink" href="#nfr-22-offline-write-queue" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Chore completions and other write actions performed offline shall be queued locally and automatically synchronised when connectivity is restored
+<strong>Rationale:</strong> Users should not be forced to redo completed actions after coming back online
+<strong>Criteria:</strong> Queued actions persisted across app restarts; sync attempted automatically upon connectivity restoration; user notified of pending sync items and informed of sync completion or conflicts
+<strong>Priority:</strong> High</p>
+<hr />
+<h2 id="self-hosting">Self-Hosting<a class="headerlink" href="#self-hosting" title="Permanent link">&para;</a></h2>
+<h3 id="nfr-23-container-based-deployment">NFR-23: Container-Based Deployment<a class="headerlink" href="#nfr-23-container-based-deployment" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The backend shall be distributed as OCI-compliant container images with an official Docker Compose configuration covering all required services
+<strong>Rationale:</strong> Containers provide a consistent and reproducible deployment environment for self-hosters regardless of their underlying OS
+<strong>Criteria:</strong> Official images published to a public container registry; Docker Compose file covers all required services (API server, database, job scheduler); all configuration exposed via documented environment variables
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-24-no-mandatory-external-cloud-dependencies">NFR-24: No Mandatory External Cloud Dependencies<a class="headerlink" href="#nfr-24-no-mandatory-external-cloud-dependencies" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> A complete self-hosted deployment shall be fully operable on a single machine without requiring external managed cloud services
+<strong>Rationale:</strong> Self-hosters must not be forced to depend on third-party cloud infrastructure beyond what they explicitly choose to configure
+<strong>Criteria:</strong> All components (API, database, scheduler) runnable on a single host via Docker Compose; no hard dependency on external managed databases, cloud queues, or third-party storage
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-25-local-network-accessibility">NFR-25: Local Network Accessibility<a class="headerlink" href="#nfr-25-local-network-accessibility" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> When the backend is deployed in a local network, client devices connected to the same local network shall be able to access the service and manage chores without requiring internet connectivity.
+<strong>Rationale:</strong> Self-hosted household deployments may operate entirely within a home LAN, where users expect the app to remain functional even without external internet access.
+<strong>Criteria:</strong> Clients on the same local network can connect to the backend using a local IP address or mDNS hostname; all core household task management functions remain available without internet access, except features that inherently depend on external services (e.g. remote push notifications).
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-26-push-notifications-for-self-hosted-instances">NFR-26: Push Notifications for Self-Hosted Instances<a class="headerlink" href="#nfr-26-push-notifications-for-self-hosted-instances" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Self-hosted instances shall support push notification delivery via configurable platform credentials
+<strong>Rationale:</strong> Push notifications require APNs (iOS) and FCM (Android) credentials that belong to the app or to the self-hoster; this must be configurable without code changes
+<strong>Criteria:</strong> Backend accepts APNs and FCM credentials via environment variables; documentation provided for obtaining and configuring credentials; push notifications fully functional when valid credentials are supplied
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-27-data-backup-and-restore">NFR-27: Data Backup and Restore<a class="headerlink" href="#nfr-27-data-backup-and-restore" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Self-hosted instances shall support straightforward data backup and restore procedures
+<strong>Rationale:</strong> Self-hosters are responsible for their own data durability; the system must not make backup unnecessarily complex
+<strong>Criteria:</strong> All persistent state stored in a single standard database engine (e.g. PostgreSQL); official documentation covers backup, restore, and migration procedures; no proprietary backup tooling required
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-28-version-upgrade-path">NFR-28: Version Upgrade Path<a class="headerlink" href="#nfr-28-version-upgrade-path" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Self-hosted instances shall support upgrading to newer versions without requiring manual database intervention beyond pulling updated images
+<strong>Rationale:</strong> Complex upgrade procedures discourage self-hosters from staying current, creating security and compatibility risks
+<strong>Criteria:</strong> Database schema migrations applied automatically on service startup; breaking changes documented with explicit migration guides; rollback procedures documented for major version changes
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="data-privacy">Data &amp; Privacy<a class="headerlink" href="#data-privacy" title="Permanent link">&para;</a></h2>
+<h3 id="nfr-29-household-data-isolation">NFR-29: Household Data Isolation<a class="headerlink" href="#nfr-29-household-data-isolation" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Data belonging to one household shall never be accessible to members of another household unless explicitly shared
+<strong>Rationale:</strong> Users must be confident that their household data is not visible to unrelated parties
+<strong>Criteria:</strong> All data access queries scoped by household membership and validated server-side; no cross-household data leakage possible through any API endpoint
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-30-personal-chore-privacy">NFR-30: Personal Chore Privacy<a class="headerlink" href="#nfr-30-personal-chore-privacy" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Personal chores shall be visible only to their owner and any users or households explicitly granted access via the sharing feature
+<strong>Rationale:</strong> Personal chores may include sensitive habits or health-related tasks; privacy must be enforced by default, not opt-in
+<strong>Criteria:</strong> Personal chore data excluded from all household-scoped queries; sharing access validated server-side on every request; revoked sharing access takes effect immediately
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-31-user-data-export">NFR-31: User Data Export<a class="headerlink" href="#nfr-31-user-data-export" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Users shall be able to export all of their personal data in a portable, machine-readable format
+<strong>Rationale:</strong> Data portability is a user right under privacy regulations such as GDPR
+<strong>Criteria:</strong> Export includes account information, personal chores, household memberships, and chore completion history; delivered as JSON or CSV; export initiated and delivered within a reasonable time window
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-32-account-deletion">NFR-32: Account Deletion<a class="headerlink" href="#nfr-32-account-deletion" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Users shall be able to permanently delete their account and all associated personal data
+<strong>Rationale:</strong> Right to erasure under GDPR and equivalent regulations
+<strong>Criteria:</strong> Account deletion removes all personal data within 30 days of the request; household chore history attributions anonymised rather than deleted to preserve scoreboard integrity for remaining members; user shown a clear summary of what will and will not be deleted before confirming
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="accessibility">Accessibility<a class="headerlink" href="#accessibility" title="Permanent link">&para;</a></h2>
+<h3 id="nfr-33-screen-reader-support">NFR-33: Screen Reader Support<a class="headerlink" href="#nfr-33-screen-reader-support" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> All interactive and informational UI elements shall be accessible via platform screen readers (TalkBack on Android, VoiceOver on iOS)
+<strong>Rationale:</strong> The app must be usable by members with visual impairments
+<strong>Criteria:</strong> All buttons, labels, and status indicators carry meaningful accessibility labels; chore list items, step indicators, and scoreboard entries fully navigable via screen reader without information loss
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-34-dynamic-font-scaling">NFR-34: Dynamic Font Scaling<a class="headerlink" href="#nfr-34-dynamic-font-scaling" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The application UI shall respect the user's system-level font size preference
+<strong>Rationale:</strong> Users with low vision rely on larger system font sizes; the UI must not break or clip content when this is applied
+<strong>Criteria:</strong> All text elements scale with system font size settings; layouts remain functional and unclipped at up to 200% of the default font scale
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-35-colour-contrast">NFR-35: Colour Contrast<a class="headerlink" href="#nfr-35-colour-contrast" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Text and interactive elements shall meet minimum colour contrast ratios
+<strong>Rationale:</strong> Sufficient contrast is necessary for users with colour vision deficiencies and in bright ambient lighting conditions
+<strong>Criteria:</strong> All text meets WCAG 2.1 AA contrast ratio (4.5:1 for normal text, 3:1 for large text); interactive element boundaries meet 3:1 contrast against adjacent colours
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="maintainability">Maintainability<a class="headerlink" href="#maintainability" title="Permanent link">&para;</a></h2>
+<h3 id="nfr-36-shared-business-logic-via-kmp">NFR-36: Shared Business Logic via KMP<a class="headerlink" href="#nfr-36-shared-business-logic-via-kmp" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> Business logic, data models, scheduling rules, and API communication shall be implemented in shared Kotlin Multiplatform code, minimising platform-specific duplication
+<strong>Rationale:</strong> A shared codebase reduces defect surface area and ensures consistent behaviour across Android and iOS
+<strong>Criteria:</strong> Platform-specific code limited to UI rendering (Compose Multiplatform), platform notification APIs, and widget integration; all business logic resides in the shared KMP module
+<strong>Priority:</strong> High</p>
+<h3 id="nfr-37-api-versioning">NFR-37: API Versioning<a class="headerlink" href="#nfr-37-api-versioning" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The backend API shall be versioned to allow clients and server to evolve independently
+<strong>Rationale:</strong> Self-hosted instances may lag behind the latest server version; client apps on users' devices may not update immediately; both must continue to function correctly
+<strong>Criteria:</strong> API versioned via URL path prefix (e.g. /v1/); previous major API version supported for a minimum of 6 months after a new major version is released; deprecation communicated via response headers
+<strong>Priority:</strong> Medium</p>
+<h3 id="nfr-38-logging-and-observability">NFR-38: Logging and Observability<a class="headerlink" href="#nfr-38-logging-and-observability" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The backend shall emit structured logs and expose health check and basic metrics endpoints
+<strong>Rationale:</strong> Self-hosters and operators need visibility into system health and errors without requiring proprietary monitoring tooling
+<strong>Criteria:</strong> Structured JSON logs emitted to stdout at configurable log levels; /health endpoint returning service and dependency status; optional Prometheus-compatible metrics endpoint; no sensitive user data logged in plain text
+<strong>Priority:</strong> Medium</p>
+<hr />
+<h2 id="localisation">Localisation<a class="headerlink" href="#localisation" title="Permanent link">&para;</a></h2>
+<h3 id="nfr-39-internationalisation-readiness">NFR-39: Internationalisation Readiness<a class="headerlink" href="#nfr-39-internationalisation-readiness" title="Permanent link">&para;</a></h3>
+<p><strong>Description:</strong> The application shall be built with internationalisation support, allowing UI strings to be translated without code changes
+<strong>Rationale:</strong> The app targets a broad international audience; hardcoded strings prevent future localisation and community contribution
+<strong>Criteria:</strong> All user-facing strings externalised into resource files; date, time, and number formatting uses locale-aware system APIs; initial release ships in English with the architecture ready to accept additional locales
+<strong>Priority:</strong> Medium</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
