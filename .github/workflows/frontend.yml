@@ -2,6 +2,7 @@ name: Frontend tests
 
 on:
   push:
+    branches: [main]
     paths:
       - "frontend/**"
       - "api/**"

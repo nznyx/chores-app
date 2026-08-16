@@ -2,6 +2,7 @@ name: Backend tests
 
 on:
   push:
+    branches: [main]
     paths:
       - "backend/**"
       - "api/**"
