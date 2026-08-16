@@ -1,13 +1,12 @@
-# CI/CD
+# CI
 
-Runs on push/PR to `main` and `develop`.
+GitHub Actions runs three independent checks on pushes and pull requests:
 
-**Source of truth:** [`.github/workflows/ci.yml`](https://github.com/nznyx/chores-app/blob/main/.github/workflows/ci.yml).
+- Frontend JVM, Android, JS, and Wasm tests when `frontend/` changes
+- Backend tests when `backend/` changes
+- Both test suites when the shared `api/` contract changes
+- Markdown lint on every change
 
-Flow: `lint` → `test` → builds + docs in parallel → gate.
+The frontend and backend workflows also run when their own workflow file or the root `Makefile` changes.
 
-## Convention
-
-1. Every CI step calls a `make` target — never raw tool invocations
-2. Add the job to `ci.yml`
-3. If gating, add to `ci-success` needs
+CI calls the same `make test-frontend`, `make test-backend`, and `make lint-markdown` targets used locally.

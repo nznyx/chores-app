@@ -52,6 +52,8 @@ build/
 .idea/junie.xml
 node_modules/
 site/
+target/
+kotlin-js-store/
 .rpt2_cache/
 local.properties
 buildSrcTmp/
