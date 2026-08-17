@@ -1,4 +1,6 @@
-.PHONY: help lint lint-kotlin lint-markdown format check-format test test-frontend test-backend \
+.PHONY: help lint lint-kotlin lint-rust lint-markdown \
+        format format-kotlin format-rust check-format check-kotlin-format check-rust-format \
+        test test-frontend test-frontend-jvm test-frontend-android test-frontend-js test-frontend-wasm test-backend \
         build build-desktop build-android build-ios clean \
         docs-setup docs-serve docs-build docs-deploy \
         ci setup
@@ -16,15 +18,20 @@ help: ## Show this help
 	@echo "Chores App — Makefile targets"
 	@echo ""
 	@echo "  CODE QUALITY"
-	@echo "    lint              Run all linters (Kotlin + Markdown)"
+	@echo "    lint              Run all linters (Kotlin + Rust + Markdown)"
 	@echo "    lint-kotlin       Run ktlint + detekt"
+	@echo "    lint-rust         Run Clippy with warnings denied"
 	@echo "    lint-markdown     Run markdownlint-cli2"
-	@echo "    format            Auto-format Kotlin via ktlintFormat"
-	@echo "    check-format      Check Kotlin formatting (fail if unformatted)"
+	@echo "    format            Auto-format Kotlin and Rust"
+	@echo "    check-format      Check Kotlin and Rust formatting"
 	@echo ""
 	@echo "  TEST"
 	@echo "    test              Run frontend and backend tests"
 	@echo "    test-frontend     Run Kotlin Multiplatform tests"
+	@echo "    test-frontend-jvm Run Kotlin/JVM tests"
+	@echo "    test-frontend-android Run Android unit tests"
+	@echo "    test-frontend-js  Run JavaScript tests"
+	@echo "    test-frontend-wasm Run WebAssembly tests"
 	@echo "    test-backend      Run Rust tests"
 	@echo ""
 	@echo "  BUILD"
@@ -55,7 +62,7 @@ setup: ## Install all tooling dependencies (npm + python)
 
 # Lint
 
-lint: lint-kotlin lint-markdown ## Run all linters
+lint: lint-kotlin lint-rust lint-markdown ## Run all linters
 
 lint-kotlin: ## Run ktlint + detekt
 	@echo "→ Running ktlint..."
@@ -63,19 +70,35 @@ lint-kotlin: ## Run ktlint + detekt
 	@echo "→ Running detekt..."
 	$(GRADLE) detekt $(GRADLE_FLAGS)
 
+lint-rust: ## Run Clippy with warnings denied
+	@echo "→ Running Clippy with warnings denied..."
+	cargo clippy --manifest-path backend/Cargo.toml --all-targets --all-features --locked -- -D warnings
+
 lint-markdown: ## Run markdownlint-cli2
 	@echo "→ Running markdownlint-cli2..."
 	$(MARKDOWNLINT)
 
 # Format
 
-format: ## Auto-format Kotlin code
+format: format-kotlin format-rust ## Auto-format Kotlin and Rust code
+
+format-kotlin: ## Auto-format Kotlin code
 	@echo "→ Formatting Kotlin with ktlintFormat..."
 	$(GRADLE) ktlintFormat $(GRADLE_FLAGS)
 
-check-format: ## Check formatting (CI use)
+format-rust: ## Auto-format Rust code
+	@echo "→ Formatting Rust with rustfmt..."
+	cargo fmt --manifest-path backend/Cargo.toml --all
+
+check-format: check-kotlin-format check-rust-format ## Check Kotlin and Rust formatting
+
+check-kotlin-format: ## Check Kotlin formatting
 	@echo "→ Checking Kotlin formatting..."
 	$(GRADLE) ktlintCheck $(GRADLE_FLAGS)
+
+check-rust-format: ## Check Rust formatting
+	@echo "→ Checking Rust formatting..."
+	cargo fmt --manifest-path backend/Cargo.toml --all -- --check
 
 # Test
 
@@ -84,6 +107,22 @@ test: test-frontend test-backend ## Run frontend and backend tests
 test-frontend: ## Run Kotlin Multiplatform tests
 	@echo "→ Running Kotlin Multiplatform tests..."
 	$(GRADLE) jvmTest testDebugUnitTest jsTest wasmJsTest $(GRADLE_FLAGS)
+
+test-frontend-jvm: ## Run Kotlin/JVM tests
+	@echo "→ Running Kotlin/JVM tests..."
+	$(GRADLE) jvmTest $(GRADLE_FLAGS)
+
+test-frontend-android: ## Run Android unit tests
+	@echo "→ Running Android unit tests..."
+	$(GRADLE) testDebugUnitTest $(GRADLE_FLAGS)
+
+test-frontend-js: ## Run JavaScript tests
+	@echo "→ Running JavaScript tests..."
+	$(GRADLE) jsTest $(GRADLE_FLAGS)
+
+test-frontend-wasm: ## Run WebAssembly tests
+	@echo "→ Running WebAssembly tests..."
+	$(GRADLE) wasmJsTest $(GRADLE_FLAGS)
 
 test-backend: ## Run Rust tests
 	@echo "→ Running Rust tests..."
@@ -134,6 +173,6 @@ docs-deploy: ## Deploy docs to GitHub Pages
 
 # CI
 
-ci: lint-markdown test ## Run the same checks as CI
+ci: lint-markdown check-rust-format lint-rust test ## Run the same checks as CI
 	@echo ""
 	@echo "✔  CI checks passed"

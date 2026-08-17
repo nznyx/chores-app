@@ -16,7 +16,7 @@ When adding new automation:
 | Tool | Purpose |
 |------|---------|
 | `./frontend/gradlew` | Kotlin build, lint, test |
-| `cargo` | Rust build and test |
+| `cargo`, `rustfmt`, `clippy` | Rust formatting, linting, build, and test |
 | `node` / `npx` | markdownlint-cli2 |
 | `uv` | mkdocs |
 

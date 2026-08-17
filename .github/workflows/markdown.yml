@@ -1,4 +1,4 @@
-name: Markdown lint
+name: Markdown documentation
 
 on:
   push:
@@ -6,14 +6,19 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  markdown-lint:
+    name: Markdown style
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Set up Node.js and npm cache
+        uses: actions/setup-node@v5
         with:
           node-version: lts/*
           cache: npm
-      - run: npm ci
-      - run: make lint-markdown
+      - name: Install Markdown tooling
+        run: npm ci
+      - name: Check Markdown style
+        run: make lint-markdown
