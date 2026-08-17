@@ -11,33 +11,133 @@ on:
   pull_request:
 
 jobs:
-  kotlin-multiplatform-tests:
-    name: Kotlin Multiplatform tests
+  frontend-changes:
+    name: Kotlin frontend change detection
+    runs-on: ubuntu-latest
+    outputs:
+      relevant: ${{ steps.detect.outputs.relevant }}
+
+    steps:
+      - name: Check out repository history
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Detect relevant changes
+        id: detect
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [[ "$EVENT_NAME" == "push" ]] || ! git diff --quiet "$BASE_SHA" HEAD -- frontend api Makefile .github/workflows/frontend.yml; then
+            echo "relevant=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "relevant=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  kotlin-jvm-tests:
+    name: Kotlin/JVM tests
+    needs: frontend-changes
+    if: needs.frontend-changes.outputs.relevant == 'true'
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - name: Detect Kotlin frontend changes
-        id: frontend_changes
-        if: github.event_name == 'pull_request'
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        run: |
-          if git diff --quiet "$BASE_SHA" HEAD -- frontend api Makefile .github/workflows/frontend.yml; then
-            echo "relevant=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "relevant=true" >> "$GITHUB_OUTPUT"
-          fi
       - name: Set up Java and Gradle cache
-        if: github.event_name == 'push' || steps.frontend_changes.outputs.relevant == 'true'
         uses: actions/setup-java@v5
         with:
           java-version: "24"
           distribution: temurin
           cache: gradle
-      - name: Run Kotlin Multiplatform tests
-        if: github.event_name == 'push' || steps.frontend_changes.outputs.relevant == 'true'
-        run: make test-frontend
+      - name: Run Kotlin/JVM tests
+        run: make test-frontend-jvm
+
+  android-unit-tests:
+    name: Android unit tests
+    needs: frontend-changes
+    if: needs.frontend-changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Set up Java and Gradle cache
+        uses: actions/setup-java@v5
+        with:
+          java-version: "24"
+          distribution: temurin
+          cache: gradle
+      - name: Run Android unit tests
+        run: make test-frontend-android
+
+  javascript-tests:
+    name: JavaScript tests
+    needs: frontend-changes
+    if: needs.frontend-changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Set up Java and Gradle cache
+        uses: actions/setup-java@v5
+        with:
+          java-version: "24"
+          distribution: temurin
+          cache: gradle
+      - name: Run JavaScript tests
+        run: make test-frontend-js
+
+  webassembly-tests:
+    name: WebAssembly tests
+    needs: frontend-changes
+    if: needs.frontend-changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Set up Java and Gradle cache
+        uses: actions/setup-java@v5
+        with:
+          java-version: "24"
+          distribution: temurin
+          cache: gradle
+      - name: Run WebAssembly tests
+        run: make test-frontend-wasm
+
+  kotlin-frontend-gate:
+    name: Kotlin frontend all clear
+    needs: [frontend-changes, kotlin-jvm-tests, android-unit-tests, javascript-tests, webassembly-tests]
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verify Kotlin frontend jobs
+        env:
+          RELEVANT: ${{ needs.frontend-changes.outputs.relevant }}
+          CHANGE_DETECTION: ${{ needs.frontend-changes.result }}
+          JVM_TESTS: ${{ needs.kotlin-jvm-tests.result }}
+          ANDROID_TESTS: ${{ needs.android-unit-tests.result }}
+          JAVASCRIPT_TESTS: ${{ needs.javascript-tests.result }}
+          WEBASSEMBLY_TESTS: ${{ needs.webassembly-tests.result }}
+        run: |
+          if [[ "$CHANGE_DETECTION" != "success" ]]; then
+            echo "::error::Kotlin change detection failed"
+            exit 1
+          fi
+          if [[ "$RELEVANT" == "true" ]]; then
+            expected="success"
+          elif [[ "$RELEVANT" == "false" ]]; then
+            expected="skipped"
+          else
+            echo "::error::Kotlin change detection produced no decision"
+            exit 1
+          fi
+          for result in "$JVM_TESTS" "$ANDROID_TESTS" "$JAVASCRIPT_TESTS" "$WEBASSEMBLY_TESTS"; do
+            if [[ "$result" != "$expected" ]]; then
+              echo "::error::Expected Kotlin job status $expected, received $result"
+              exit 1
+            fi
+          done

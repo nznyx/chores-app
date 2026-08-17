@@ -11,32 +11,96 @@ on:
   pull_request:
 
 jobs:
-  rust-quality:
-    name: Rust formatting, Clippy, and tests
+  rust-changes:
+    name: Rust backend change detection
+    runs-on: ubuntu-latest
+    outputs:
+      relevant: ${{ steps.detect.outputs.relevant }}
+
+    steps:
+      - name: Check out repository history
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Detect relevant changes
+        id: detect
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [[ "$EVENT_NAME" == "push" ]] || ! git diff --quiet "$BASE_SHA" HEAD -- backend api Makefile .github/workflows/backend.yml; then
+            echo "relevant=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "relevant=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  rust-format:
+    name: Rustfmt
+    needs: rust-changes
+    if: needs.rust-changes.outputs.relevant == 'true'
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - name: Detect Rust backend changes
-        id: backend_changes
-        if: github.event_name == 'pull_request'
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        run: |
-          if git diff --quiet "$BASE_SHA" HEAD -- backend api Makefile .github/workflows/backend.yml; then
-            echo "relevant=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "relevant=true" >> "$GITHUB_OUTPUT"
-          fi
       - name: Check Rust formatting
-        if: github.event_name == 'push' || steps.backend_changes.outputs.relevant == 'true'
         run: make check-rust-format
+
+  rust-clippy:
+    name: Clippy (warnings denied)
+    needs: rust-changes
+    if: needs.rust-changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
       - name: Run Clippy with warnings denied
-        if: github.event_name == 'push' || steps.backend_changes.outputs.relevant == 'true'
         run: make lint-rust
+
+  rust-tests:
+    name: Rust tests
+    needs: rust-changes
+    if: needs.rust-changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
       - name: Run Rust tests
-        if: github.event_name == 'push' || steps.backend_changes.outputs.relevant == 'true'
         run: make test-backend
+
+  rust-backend-gate:
+    name: Rust backend all clear
+    needs: [rust-changes, rust-format, rust-clippy, rust-tests]
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verify Rust backend jobs
+        env:
+          RELEVANT: ${{ needs.rust-changes.outputs.relevant }}
+          CHANGE_DETECTION: ${{ needs.rust-changes.result }}
+          RUSTFMT: ${{ needs.rust-format.result }}
+          CLIPPY: ${{ needs.rust-clippy.result }}
+          TESTS: ${{ needs.rust-tests.result }}
+        run: |
+          if [[ "$CHANGE_DETECTION" != "success" ]]; then
+            echo "::error::Rust change detection failed"
+            exit 1
+          fi
+          if [[ "$RELEVANT" == "true" ]]; then
+            expected="success"
+          elif [[ "$RELEVANT" == "false" ]]; then
+            expected="skipped"
+          else
+            echo "::error::Rust change detection produced no decision"
+            exit 1
+          fi
+          for result in "$RUSTFMT" "$CLIPPY" "$TESTS"; do
+            if [[ "$result" != "$expected" ]]; then
+              echo "::error::Expected Rust job status $expected, received $result"
+              exit 1
+            fi
+          done

@@ -1,6 +1,6 @@
 .PHONY: help lint lint-kotlin lint-rust lint-markdown \
         format format-kotlin format-rust check-format check-kotlin-format check-rust-format \
-        test test-frontend test-backend \
+        test test-frontend test-frontend-jvm test-frontend-android test-frontend-js test-frontend-wasm test-backend \
         build build-desktop build-android build-ios clean \
         docs-setup docs-serve docs-build docs-deploy \
         ci setup
@@ -28,6 +28,10 @@ help: ## Show this help
 	@echo "  TEST"
 	@echo "    test              Run frontend and backend tests"
 	@echo "    test-frontend     Run Kotlin Multiplatform tests"
+	@echo "    test-frontend-jvm Run Kotlin/JVM tests"
+	@echo "    test-frontend-android Run Android unit tests"
+	@echo "    test-frontend-js  Run JavaScript tests"
+	@echo "    test-frontend-wasm Run WebAssembly tests"
 	@echo "    test-backend      Run Rust tests"
 	@echo ""
 	@echo "  BUILD"
@@ -103,6 +107,22 @@ test: test-frontend test-backend ## Run frontend and backend tests
 test-frontend: ## Run Kotlin Multiplatform tests
 	@echo "→ Running Kotlin Multiplatform tests..."
 	$(GRADLE) jvmTest testDebugUnitTest jsTest wasmJsTest $(GRADLE_FLAGS)
+
+test-frontend-jvm: ## Run Kotlin/JVM tests
+	@echo "→ Running Kotlin/JVM tests..."
+	$(GRADLE) jvmTest $(GRADLE_FLAGS)
+
+test-frontend-android: ## Run Android unit tests
+	@echo "→ Running Android unit tests..."
+	$(GRADLE) testDebugUnitTest $(GRADLE_FLAGS)
+
+test-frontend-js: ## Run JavaScript tests
+	@echo "→ Running JavaScript tests..."
+	$(GRADLE) jsTest $(GRADLE_FLAGS)
+
+test-frontend-wasm: ## Run WebAssembly tests
+	@echo "→ Running WebAssembly tests..."
+	$(GRADLE) wasmJsTest $(GRADLE_FLAGS)
 
 test-backend: ## Run Rust tests
 	@echo "→ Running Rust tests..."
