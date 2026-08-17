@@ -31,6 +31,7 @@ theme:
 
 nav:
   - Home: index.md
+  - Architecture: architecture.md
   - Requirements:
       - Functional: requirements/FR.md
       - Non-functional: requirements/NFR.md

@@ -43,8 +43,11 @@ You can run your own backend instance.
 
 ## Tech stack
 
-Built with [Kotlin Multiplatform (KMP)](https://kotlinlang.org/docs/multiplatform.html) and [Compose Multiplatform (CMP)](https://www.jetbrains.com/lc/compose-multiplatform/).
+- `frontend/`: [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) and [Compose Multiplatform](https://www.jetbrains.com/lc/compose-multiplatform/)
+- `backend/`: Rust
+- `api/`: OpenAPI contract shared by frontend and backend
+- `docs/`: requirements and architecture
 
 ## Documentation
 
-[Full documentation](/docs/index.md)
+[Full documentation](docs/index.md)

@@ -1,11 +1,11 @@
-.PHONY: help lint lint-kotlin lint-markdown format check-format test \
+.PHONY: help lint lint-kotlin lint-markdown format check-format test test-frontend test-backend \
         build build-desktop build-android build-ios clean \
         docs-setup docs-serve docs-build docs-deploy \
         ci setup
 
 .DEFAULT_GOAL := help
 
-GRADLE        := ./gradlew
+GRADLE        := ./frontend/gradlew -p frontend
 MARKDOWNLINT  := npx markdownlint-cli2
 GRADLE_FLAGS  := --no-daemon
 MKDOCS        := $(shell command -v mkdocs 2>/dev/null || echo "uv run --with mkdocs-material mkdocs")
@@ -23,7 +23,9 @@ help: ## Show this help
 	@echo "    check-format      Check Kotlin formatting (fail if unformatted)"
 	@echo ""
 	@echo "  TEST"
-	@echo "    test              Run all JVM tests"
+	@echo "    test              Run frontend and backend tests"
+	@echo "    test-frontend     Run Kotlin Multiplatform tests"
+	@echo "    test-backend      Run Rust tests"
 	@echo ""
 	@echo "  BUILD"
 	@echo "    build             Build desktop + android"
@@ -77,9 +79,15 @@ check-format: ## Check formatting (CI use)
 
 # Test
 
-test: ## Run all JVM tests
-	@echo "→ Running all JVM tests..."
-	$(GRADLE) allTests $(GRADLE_FLAGS)
+test: test-frontend test-backend ## Run frontend and backend tests
+
+test-frontend: ## Run Kotlin Multiplatform tests
+	@echo "→ Running Kotlin Multiplatform tests..."
+	$(GRADLE) jvmTest testDebugUnitTest jsTest wasmJsTest $(GRADLE_FLAGS)
+
+test-backend: ## Run Rust tests
+	@echo "→ Running Rust tests..."
+	cargo test --manifest-path backend/Cargo.toml --locked
 
 # Build
 
@@ -102,6 +110,7 @@ build-ios: ## Build iOS frameworks (macOS only)
 clean: ## Remove all build artifacts
 	@echo "→ Cleaning build artifacts..."
 	$(GRADLE) clean $(GRADLE_FLAGS)
+	cargo clean --manifest-path backend/Cargo.toml
 	rm -rf site/ node_modules/
 
 # Docs
@@ -125,6 +134,6 @@ docs-deploy: ## Deploy docs to GitHub Pages
 
 # CI
 
-ci: lint test build-desktop ## Run same checks as CI pipeline (no iOS — macOS only)
+ci: lint-markdown test ## Run the same checks as CI
 	@echo ""
-	@echo "✔  CI checks passed (lint + test + desktop build)"
+	@echo "✔  CI checks passed"
