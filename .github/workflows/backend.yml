@@ -1,4 +1,4 @@
-name: Backend tests
+name: Rust backend
 
 on:
   push:
@@ -9,16 +9,34 @@ on:
       - "Makefile"
       - ".github/workflows/backend.yml"
   pull_request:
-    paths:
-      - "backend/**"
-      - "api/**"
-      - "Makefile"
-      - ".github/workflows/backend.yml"
 
 jobs:
-  test:
+  rust-quality:
+    name: Rust formatting, Clippy, and tests
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
-      - run: make test-backend
+      - name: Check out repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Detect Rust backend changes
+        id: backend_changes
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if git diff --quiet "$BASE_SHA" HEAD -- backend api Makefile .github/workflows/backend.yml; then
+            echo "relevant=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "relevant=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Check Rust formatting
+        if: github.event_name == 'push' || steps.backend_changes.outputs.relevant == 'true'
+        run: make check-rust-format
+      - name: Run Clippy with warnings denied
+        if: github.event_name == 'push' || steps.backend_changes.outputs.relevant == 'true'
+        run: make lint-rust
+      - name: Run Rust tests
+        if: github.event_name == 'push' || steps.backend_changes.outputs.relevant == 'true'
+        run: make test-backend

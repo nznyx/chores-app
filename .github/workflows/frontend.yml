@@ -1,4 +1,4 @@
-name: Frontend tests
+name: Kotlin frontend
 
 on:
   push:
@@ -9,21 +9,35 @@ on:
       - "Makefile"
       - ".github/workflows/frontend.yml"
   pull_request:
-    paths:
-      - "frontend/**"
-      - "api/**"
-      - "Makefile"
-      - ".github/workflows/frontend.yml"
 
 jobs:
-  test:
+  kotlin-multiplatform-tests:
+    name: Kotlin Multiplatform tests
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-java@v5
+      - name: Check out repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Detect Kotlin frontend changes
+        id: frontend_changes
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if git diff --quiet "$BASE_SHA" HEAD -- frontend api Makefile .github/workflows/frontend.yml; then
+            echo "relevant=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "relevant=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Set up Java and Gradle cache
+        if: github.event_name == 'push' || steps.frontend_changes.outputs.relevant == 'true'
+        uses: actions/setup-java@v5
         with:
           java-version: "24"
           distribution: temurin
           cache: gradle
-      - run: make test-frontend
+      - name: Run Kotlin Multiplatform tests
+        if: github.event_name == 'push' || steps.frontend_changes.outputs.relevant == 'true'
+        run: make test-frontend
