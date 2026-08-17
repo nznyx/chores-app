@@ -1,0 +1,22 @@
+name: Branch name
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    env:
+      BRANCH_NAME: ${{ github.head_ref }}
+
+    steps:
+      - name: Require type/lowercase-kebab-case
+        run: |
+          if [[ ! "$BRANCH_NAME" =~ ^(feat|fix|chore|docs|refactor|test|ci)/[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+            echo "::error title=Invalid branch name::$BRANCH_NAME must match type/lowercase-kebab-case"
+            exit 1
+          fi
