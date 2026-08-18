@@ -2,7 +2,7 @@
         format format-kotlin format-rust check-format check-kotlin-format check-rust-format \
         test test-frontend test-frontend-jvm test-frontend-android test-frontend-js test-frontend-wasm test-backend \
         build build-desktop build-android build-ios clean \
-        docs-setup docs-serve docs-build docs-deploy \
+        docs-setup docs-serve docs-build \
         ci setup
 
 .DEFAULT_GOAL := help
@@ -10,7 +10,8 @@
 GRADLE        := ./frontend/gradlew -p frontend
 MARKDOWNLINT  := npx markdownlint-cli2
 GRADLE_FLAGS  := --no-daemon
-MKDOCS        := $(shell command -v mkdocs 2>/dev/null || echo "uv run --with mkdocs-material mkdocs")
+MKDOCS        := uv run --with "mkdocs-material==9.7.7" mkdocs
+export NO_MKDOCS_2_WARNING := true
 
 # Help
 
@@ -44,10 +45,9 @@ help: ## Show this help
 	@echo "    clean             Remove all build artifacts"
 	@echo ""
 	@echo "  DOCS"
-	@echo "    docs-setup        Install mkdocs + material theme"
+	@echo "    docs-setup        Prepare documentation tools"
 	@echo "    docs-serve        Serve docs locally (hot-reload)"
 	@echo "    docs-build        Build docs static site"
-	@echo "    docs-deploy       Deploy docs to GitHub Pages"
 	@echo ""
 	@echo "  CI"
 	@echo "    ci                Run same checks as CI pipeline"
@@ -57,8 +57,8 @@ help: ## Show this help
 setup: ## Install all tooling dependencies (npm + python)
 	@echo "→ Installing markdownlint-cli2..."
 	npm install --save-dev markdownlint-cli2
-	@echo "→ Installing mkdocs + material theme..."
-	uv pip install mkdocs mkdocs-material || pip3 install mkdocs mkdocs-material
+	@echo "→ Preparing documentation tools..."
+	$(MKDOCS) --version
 
 # Lint
 
@@ -154,10 +154,9 @@ clean: ## Remove all build artifacts
 
 # Docs
 
-docs-setup: ## Install mkdocs + material theme
-	@echo "→ Installing mkdocs + material theme..."
-	uvx mkdocs --version >/dev/null 2>&1 || uv tool install mkdocs
-	uv pip install mkdocs-material || uv run --with mkdocs-material mkdocs --version
+docs-setup: ## Prepare pinned documentation tools
+	@echo "→ Preparing documentation tools..."
+	$(MKDOCS) --version
 
 docs-serve: ## Serve docs locally (hot-reload)
 	@echo "→ Starting mkdocs server at http://127.0.0.1:8000 ..."
@@ -166,10 +165,6 @@ docs-serve: ## Serve docs locally (hot-reload)
 docs-build: ## Build static documentation site
 	@echo "→ Building documentation site..."
 	$(MKDOCS) build
-
-docs-deploy: ## Deploy docs to GitHub Pages
-	@echo "→ Deploying documentation to GitHub Pages..."
-	$(MKDOCS) gh-deploy
 
 # CI
 

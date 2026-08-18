@@ -18,6 +18,11 @@ When adding new automation:
 | `./frontend/gradlew` | Kotlin build, lint, test |
 | `cargo`, `rustfmt`, `clippy` | Rust formatting, linting, build, and test |
 | `node` / `npx` | markdownlint-cli2 |
-| `uv` | mkdocs |
+| `uv` | Pinned MkDocs Material tooling |
 
-Run `make setup` to install Node and Python deps.
+Run `make setup` to install Node dependencies and prepare the documentation tools.
+
+## Documentation
+
+- `make docs-serve` serves the current checkout locally.
+- `make docs-build` builds the current checkout into `site/`.
