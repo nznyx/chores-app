@@ -7,9 +7,17 @@ GitHub Actions runs independent checks for pull requests and repeats relevant pr
 - Both test suites when the shared `api/` contract changes
 - Markdown lint on every change
 - Branch naming convention on pull requests
+- Documentation build when documentation changes
+- Documentation publication after relevant changes reach `main`
 
 The frontend and backend workflows start for every pull request. A change-detection job skips unrelated project jobs, and each workflow reports a final all-clear gate that succeeds only when every relevant job passes. Pushes to `main` retain workflow-level path filters because they are not pull-request merge gates.
 
 Feature-branch pushes are handled by the pull request event, so they do not also create duplicate push runs.
 
 CI calls the same `make` targets used locally, including separate targets for each frontend platform and Rust quality check.
+
+## Documentation publication
+
+GitHub Pages is deployed from a workflow artifact; generated files are not stored in a remote branch. Pull requests validate the current documentation without publishing it. Relevant pushes to `main` rebuild and publish the site root.
+
+Only the current documentation is published.
