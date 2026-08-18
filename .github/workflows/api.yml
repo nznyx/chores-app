@@ -1,9 +1,21 @@
-name: Markdown documentation
+name: API contract
 
 on:
   push:
     branches: [main]
+    paths:
+      - "api/**"
+      - "package.json"
+      - "package-lock.json"
+      - "Makefile"
+      - ".github/workflows/api.yml"
   pull_request:
+    paths:
+      - "api/**"
+      - "package.json"
+      - "package-lock.json"
+      - "Makefile"
+      - ".github/workflows/api.yml"
 
 permissions:
   contents: read
@@ -13,8 +25,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  markdown-lint:
-    name: Markdown style
+  openapi-contract:
+    name: OpenAPI contract
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -26,7 +38,7 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - name: Install Markdown tooling
+      - name: Install repository tooling
         run: npm ci
-      - name: Check Markdown style
-        run: make lint-markdown
+      - name: Validate OpenAPI contract
+        run: make lint-api

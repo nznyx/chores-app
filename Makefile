@@ -1,4 +1,4 @@
-.PHONY: help lint lint-kotlin lint-rust lint-markdown \
+.PHONY: help lint lint-kotlin lint-kotlin-detekt lint-rust lint-api lint-markdown \
         format format-kotlin format-rust check-format check-kotlin-format check-rust-format \
         test test-frontend test-frontend-jvm test-frontend-android test-frontend-js test-frontend-wasm test-backend \
         build build-desktop build-android build-ios clean \
@@ -9,8 +9,9 @@
 
 GRADLE        := ./frontend/gradlew -p frontend
 MARKDOWNLINT  := npx markdownlint-cli2
+REDOCLY       := npx redocly
 GRADLE_FLAGS  := --no-daemon
-MKDOCS        := uv run --with "mkdocs-material==9.7.7" mkdocs
+MKDOCS        := uvx --with "mkdocs-material==9.7.7" mkdocs
 export NO_MKDOCS_2_WARNING := true
 
 # Help
@@ -19,9 +20,11 @@ help: ## Show this help
 	@echo "Chores App — Makefile targets"
 	@echo ""
 	@echo "  CODE QUALITY"
-	@echo "    lint              Run all linters (Kotlin + Rust + Markdown)"
+	@echo "    lint              Run all linters"
 	@echo "    lint-kotlin       Run ktlint + detekt"
+	@echo "    lint-kotlin-detekt Run Detekt static analysis"
 	@echo "    lint-rust         Run Clippy with warnings denied"
+	@echo "    lint-api          Validate the OpenAPI contract"
 	@echo "    lint-markdown     Run markdownlint-cli2"
 	@echo "    format            Auto-format Kotlin and Rust"
 	@echo "    check-format      Check Kotlin and Rust formatting"
@@ -55,24 +58,28 @@ help: ## Show this help
 # Setup
 
 setup: ## Install all tooling dependencies (npm + python)
-	@echo "→ Installing markdownlint-cli2..."
-	npm install --save-dev markdownlint-cli2
+	@echo "→ Installing Node.js tooling..."
+	npm install
 	@echo "→ Preparing documentation tools..."
 	$(MKDOCS) --version
 
 # Lint
 
-lint: lint-kotlin lint-rust lint-markdown ## Run all linters
+lint: lint-kotlin lint-rust lint-api lint-markdown ## Run all linters
 
-lint-kotlin: ## Run ktlint + detekt
-	@echo "→ Running ktlint..."
-	$(GRADLE) ktlintCheck $(GRADLE_FLAGS)
+lint-kotlin: check-kotlin-format lint-kotlin-detekt ## Run ktlint + detekt
+
+lint-kotlin-detekt: ## Run Detekt static analysis
 	@echo "→ Running detekt..."
 	$(GRADLE) detekt $(GRADLE_FLAGS)
 
 lint-rust: ## Run Clippy with warnings denied
 	@echo "→ Running Clippy with warnings denied..."
 	cargo clippy --manifest-path backend/Cargo.toml --all-targets --all-features --locked -- -D warnings
+
+lint-api: ## Validate the OpenAPI contract
+	@echo "→ Validating OpenAPI contract..."
+	$(REDOCLY) lint api/openapi.yaml
 
 lint-markdown: ## Run markdownlint-cli2
 	@echo "→ Running markdownlint-cli2..."
@@ -168,6 +175,6 @@ docs-build: ## Build static documentation site
 
 # CI
 
-ci: lint-markdown check-rust-format lint-rust test ## Run the same checks as CI
+ci: lint-markdown lint-api check-kotlin-format lint-kotlin-detekt check-rust-format lint-rust test ## Run the same checks as CI
 	@echo ""
 	@echo "✔  CI checks passed"

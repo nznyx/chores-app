@@ -31,7 +31,7 @@ complexity:
     threshold: 4
   ComplexInterface:
     active: false
-  ComplexMethod:
+  CyclomaticComplexMethod:
     active: true
     threshold: 15
   LargeClass:
@@ -42,15 +42,14 @@ complexity:
     threshold: 60
   LongParameterList:
     active: true
-    threshold: 6
-  TooManyFunctions:
-    active: true
-    threshold: 11
+    functionThreshold: 6
+    constructorThreshold: 6
 
 style:
   active: true
   MagicNumber:
     active: true
+    excludes: ["**/*Test.kt"]
   MaxLineLength:
     active: true
     maxLineLength: 120
