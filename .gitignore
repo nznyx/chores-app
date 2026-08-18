@@ -53,7 +53,6 @@ build/
 node_modules/
 site/
 target/
-kotlin-js-store/
 .rpt2_cache/
 local.properties
 buildSrcTmp/
