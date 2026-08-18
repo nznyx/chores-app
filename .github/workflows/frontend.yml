@@ -10,10 +10,18 @@ on:
       - ".github/workflows/frontend.yml"
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   frontend-changes:
     name: Kotlin frontend change detection
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     outputs:
       relevant: ${{ steps.detect.outputs.relevant }}
 
@@ -35,17 +43,56 @@ jobs:
             echo "relevant=false" >> "$GITHUB_OUTPUT"
           fi
 
-  kotlin-jvm-tests:
-    name: Kotlin/JVM tests
+  kotlin-format:
+    name: Kotlin formatting
     needs: frontend-changes
     if: needs.frontend-changes.outputs.relevant == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
       - name: Set up Java and Gradle cache
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          java-version: "24"
+          distribution: temurin
+          cache: gradle
+      - name: Check Kotlin formatting
+        run: make check-kotlin-format
+
+  kotlin-static-analysis:
+    name: Kotlin static analysis
+    needs: frontend-changes
+    if: needs.frontend-changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Set up Java and Gradle cache
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          java-version: "24"
+          distribution: temurin
+          cache: gradle
+      - name: Run Detekt static analysis
+        run: make lint-kotlin-detekt
+
+  kotlin-jvm-tests:
+    name: Kotlin/JVM tests
+    needs: frontend-changes
+    if: needs.frontend-changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Set up Java and Gradle cache
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           java-version: "24"
           distribution: temurin
@@ -58,12 +105,13 @@ jobs:
     needs: frontend-changes
     if: needs.frontend-changes.outputs.relevant == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
       - name: Set up Java and Gradle cache
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           java-version: "24"
           distribution: temurin
@@ -76,12 +124,13 @@ jobs:
     needs: frontend-changes
     if: needs.frontend-changes.outputs.relevant == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
       - name: Set up Java and Gradle cache
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           java-version: "24"
           distribution: temurin
@@ -94,12 +143,13 @@ jobs:
     needs: frontend-changes
     if: needs.frontend-changes.outputs.relevant == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
       - name: Set up Java and Gradle cache
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           java-version: "24"
           distribution: temurin
@@ -109,15 +159,18 @@ jobs:
 
   kotlin-frontend-gate:
     name: Kotlin frontend all clear
-    needs: [frontend-changes, kotlin-jvm-tests, android-unit-tests, javascript-tests, webassembly-tests]
+    needs: [frontend-changes, kotlin-format, kotlin-static-analysis, kotlin-jvm-tests, android-unit-tests, javascript-tests, webassembly-tests]
     if: always()
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
       - name: Verify Kotlin frontend jobs
         env:
           RELEVANT: ${{ needs.frontend-changes.outputs.relevant }}
           CHANGE_DETECTION: ${{ needs.frontend-changes.result }}
+          KOTLIN_FORMAT: ${{ needs.kotlin-format.result }}
+          KOTLIN_STATIC_ANALYSIS: ${{ needs.kotlin-static-analysis.result }}
           JVM_TESTS: ${{ needs.kotlin-jvm-tests.result }}
           ANDROID_TESTS: ${{ needs.android-unit-tests.result }}
           JAVASCRIPT_TESTS: ${{ needs.javascript-tests.result }}
@@ -135,7 +188,7 @@ jobs:
             echo "::error::Kotlin change detection produced no decision"
             exit 1
           fi
-          for result in "$JVM_TESTS" "$ANDROID_TESTS" "$JAVASCRIPT_TESTS" "$WEBASSEMBLY_TESTS"; do
+          for result in "$KOTLIN_FORMAT" "$KOTLIN_STATIC_ANALYSIS" "$JVM_TESTS" "$ANDROID_TESTS" "$JAVASCRIPT_TESTS" "$WEBASSEMBLY_TESTS"; do
             if [[ "$result" != "$expected" ]]; then
               echo "::error::Expected Kotlin job status $expected, received $result"
               exit 1

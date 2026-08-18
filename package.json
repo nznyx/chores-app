@@ -1,8 +1,9 @@
 {
   "name": "chores-app",
   "private": true,
-  "description": "Markdown tooling for the Chores App monorepo.",
+  "description": "Repository tooling for the Chores App monorepo.",
   "devDependencies": {
-    "markdownlint-cli2": "^0.23.0"
+    "@redocly/cli": "2.46.1",
+    "markdownlint-cli2": "0.23.2"
   }
 }

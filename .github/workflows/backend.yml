@@ -7,13 +7,22 @@ on:
       - "backend/**"
       - "api/**"
       - "Makefile"
+      - "rust-toolchain.toml"
       - ".github/workflows/backend.yml"
   pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   rust-changes:
     name: Rust backend change detection
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     outputs:
       relevant: ${{ steps.detect.outputs.relevant }}
 
@@ -29,7 +38,7 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
-          if [[ "$EVENT_NAME" == "push" ]] || ! git diff --quiet "$BASE_SHA" HEAD -- backend api Makefile .github/workflows/backend.yml; then
+          if [[ "$EVENT_NAME" == "push" ]] || ! git diff --quiet "$BASE_SHA" HEAD -- backend api Makefile rust-toolchain.toml .github/workflows/backend.yml; then
             echo "relevant=true" >> "$GITHUB_OUTPUT"
           else
             echo "relevant=false" >> "$GITHUB_OUTPUT"
@@ -40,6 +49,7 @@ jobs:
     needs: rust-changes
     if: needs.rust-changes.outputs.relevant == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository
@@ -52,6 +62,7 @@ jobs:
     needs: rust-changes
     if: needs.rust-changes.outputs.relevant == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository
@@ -64,6 +75,7 @@ jobs:
     needs: rust-changes
     if: needs.rust-changes.outputs.relevant == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository
@@ -76,6 +88,7 @@ jobs:
     needs: [rust-changes, rust-format, rust-clippy, rust-tests]
     if: always()
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
       - name: Verify Rust backend jobs
